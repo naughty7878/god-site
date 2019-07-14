@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<project
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+	xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.god</groupId>
+		<artifactId>god-web</artifactId>
+		<version>1.0-SNAPSHOT</version>
+	</parent>
+	<artifactId>god-web-zeus</artifactId>
+	<packaging>war</packaging>
+
+	<dependencies>
+		<!-- god -->
+		<dependency>
+			<groupId>com.god</groupId>
+			<artifactId>god-service</artifactId>
+		</dependency>
+		
+		<dependency>
+			<groupId>com.god</groupId>
+			<artifactId>god-manager-baidu</artifactId>
+		</dependency>
+		
+		<dependency>
+			<groupId>com.god</groupId>
+			<artifactId>god-dao</artifactId>
+		</dependency>
+
+		
+
+		<!-- jstl -->
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>jstl</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>taglibs</groupId>
+			<artifactId>standard</artifactId>
+		</dependency>
+
+	</dependencies>
+	<build>
+		<finalName>zeus</finalName>
+	</build>
+</project>
