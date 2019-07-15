@@ -65,9 +65,9 @@
 
 		<!-- Tool -->
 		<!-- jackson json包 -->
-		<jackson-databind.version>2.9.6</jackson-databind.version>
-		<jackson-core.version>2.9.6</jackson-core.version>
-		<jackson-annotations.version>2.9.6</jackson-annotations.version>
+		<jackson-databind.version>2.9.7</jackson-databind.version>
+		<jackson-core.version>2.9.7</jackson-core.version>
+		<jackson-annotations.version>2.9.7</jackson-annotations.version>
 
 		<!-- sigarsigar获取系统信息包 -->
 		<sigar.version>2.9.6</sigar.version>
