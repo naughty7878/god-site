@@ -55,7 +55,7 @@ public class LogParamAspect {
 		try {
         	log.info(request.getServletPath() + "\nRequest Params：\n" + objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(args));
 		} catch (Exception e) {
-			log.info(request.getServletPath() + "\ntRequest Params：\n" + args);
+			log.info(request.getServletPath() + "\nRequest Params：\n" + args);
 		}
 		result = pjp.proceed(args);
 		
