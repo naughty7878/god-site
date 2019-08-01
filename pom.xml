@@ -27,6 +27,8 @@
 
 		<!-- spring -->
 		<spring.version>5.1.4.RELEASE</spring.version>
+		<!-- aspectjrt -->
+		<aspectjrt.version>1.9.2</aspectjrt.version>
 
 		<!-- Mybatis -->
 		<mybatis.version>3.5.0</mybatis.version>
@@ -163,13 +165,13 @@
 			<dependency>
 				<groupId>org.aspectj</groupId>
 				<artifactId>aspectjrt</artifactId>
-				<version>1.9.2</version>
+				<version>${aspectjrt.version}</version>
 			</dependency>
 
 			<dependency>
 				<groupId>org.aspectj</groupId>
 				<artifactId>aspectjweaver</artifactId>
-				<version>1.9.2</version>
+				<version>${aspectjrt.version}</version>
 			</dependency>
 
 			<!-- Spring WEB MVC 模块 -->

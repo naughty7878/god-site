@@ -63,7 +63,8 @@ public class GodUserController {
 	@ResponseBody
 	public BaseOutput update(@RequestBody BaseInput<GodUserBo> input){
 		
-		userService.update(input.getData());
+		int n = userService.update(input.getData());
+		System.out.println(n);
 		return BaseOutput.OK("更新成功");
 	}
 	

@@ -281,7 +281,7 @@
 					success:function(data){//返回json结果
 						if(data.code == 0) {
 							//此处请求后台程序，下方是成功后的前台处理……
-							$(obj).parents("tr").find(".td-manage").prepend('<a onClick="admin_start(this,id)" href="javascript:;" title="启用" style="text-decoration:none"><i class="Hui-iconfont">&#xe615;</i></a>');
+							$(obj).parents("tr").find(".td-manage").prepend('<a onClick="admin_start(this,'+id+')" href="javascript:;" title="启用" style="text-decoration:none"><i class="Hui-iconfont">&#xe615;</i></a>');
 							$(obj).parents("tr").find(".td-status").html('<span class="label label-default radius">已禁用</span>');
 							$(obj).remove();
 							layer.msg('已停用!', {
@@ -310,7 +310,7 @@
 					success:function(data){//返回json结果
 						if(data.code == 0) {
 							//此处请求后台程序，下方是成功后的前台处理……
-							$(obj).parents("tr").find(".td-manage").prepend( '<a onClick="admin_stop(this,id)" href="javascript:;" title="停用" style="text-decoration:none"><i class="Hui-iconfont">&#xe631;</i></a>');
+							$(obj).parents("tr").find(".td-manage").prepend( '<a onClick="admin_stop(this,'+id+')" href="javascript:;" title="停用" style="text-decoration:none"><i class="Hui-iconfont">&#xe631;</i></a>');
 							$(obj).parents("tr").find(".td-status").html('<span class="label label-success radius">已启用</span>');
 							$(obj).remove();
 							layer.msg('已启用!', {
