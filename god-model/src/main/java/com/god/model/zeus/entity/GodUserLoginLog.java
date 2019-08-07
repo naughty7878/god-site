@@ -3,84 +3,102 @@ package com.god.model.zeus.entity;
 import java.io.Serializable;
 import java.util.Date;
 
-public class GodUserLoginLog implements Serializable {
-    private Integer id;
 
-    private Integer userId;
-
-    private String loginIp;
-
-    private Integer times;
-
-    private String city;
-
-    private Date createTime;
-
-    private Date updateTime;
-
-    private static final long serialVersionUID = 1L;
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public Integer getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Integer userId) {
-        this.userId = userId;
-    }
-
-    public String getLoginIp() {
-        return loginIp;
-    }
-
-    public void setLoginIp(String loginIp) {
-        this.loginIp = loginIp;
-    }
-
-    public Integer getTimes() {
-        return times;
-    }
-
-    public void setTimes(Integer times) {
-        this.times = times;
-    }
-
-    public String getCity() {
-        return city;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
-    }
-
-    public Date getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
-
-    public Date getUpdateTime() {
-        return updateTime;
-    }
-
-    public void setUpdateTime(Date updateTime) {
-        this.updateTime = updateTime;
-    }
-
-	@Override
-	public String toString() {
-		return "GodUserLoginLog [id=" + id + ", userId=" + userId + ", loginIp=" + loginIp + ", times=" + times
-				+ ", city=" + city + ", createTime=" + createTime + ", updateTime=" + updateTime + "]";
+/**
+ * 用户登录日志表 实体类
+ * 
+ * @author God
+ * @date 2019-08-02 01:07:43
+ */
+public class GodUserLoginLog implements java.io.Serializable{
+	
+	private static final long serialVersionUID = 1L;	
+	
+	/**
+     * ID 
+     */
+	private Integer id;
+	/**
+     * 用户id 
+     */
+	private Integer userId;
+	/**
+     * 登录IP 
+     */
+	private String loginIp;
+	/**
+     * 次数 
+     */
+	private Integer times;
+	/**
+     * 城市 
+     */
+	private String city;
+	/**
+     * 创建时间 
+     */
+	private Date createTime;
+	/**
+     * 更新时间 
+     */
+	private Date updateTime;
+	
+		
+	public void setId(Integer value) {
+		this.id = value;
 	}
-    
-    
+	
+	public Integer getId() {
+		return this.id;
+	}
+		
+	public void setUserId(Integer value) {
+		this.userId = value;
+	}
+	
+	public Integer getUserId() {
+		return this.userId;
+	}
+		
+	public void setLoginIp(String value) {
+		this.loginIp = value;
+	}
+	
+	public String getLoginIp() {
+		return this.loginIp;
+	}
+		
+	public void setTimes(Integer value) {
+		this.times = value;
+	}
+	
+	public Integer getTimes() {
+		return this.times;
+	}
+		
+	public void setCity(String value) {
+		this.city = value;
+	}
+	
+	public String getCity() {
+		return this.city;
+	}
+		
+	public void setCreateTime(Date value) {
+		this.createTime = value;
+	}
+	
+	public Date getCreateTime() {
+		return this.createTime;
+	}
+		
+	public void setUpdateTime(Date value) {
+		this.updateTime = value;
+	}
+	
+	public Date getUpdateTime() {
+		return this.updateTime;
+	}
+
 }
+

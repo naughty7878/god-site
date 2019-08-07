@@ -1,4 +1,4 @@
-package com.god.web.zeus.interceptor;
+package com.god.web.zeus.aspect;
 
 import javax.servlet.http.HttpServletRequest;
 

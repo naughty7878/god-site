@@ -1,4 +1,4 @@
-package com.god.web.zeus.interceptor;
+package com.god.web.zeus.aspect;
 
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;

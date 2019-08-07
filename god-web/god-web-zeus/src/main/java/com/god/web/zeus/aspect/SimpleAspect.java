@@ -1,4 +1,4 @@
-package com.god.web.zeus.interceptor;
+package com.god.web.zeus.aspect;
 
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -71,7 +71,7 @@ public class SimpleAspect {
     * 	参数为Object类型将匹配任何目标返回值
     */
     @AfterReturning(value = "pointCut()",returning = "result")
-    public void doAfter(JoinPoint joinPoint,Object result){
+    public void doAfterReturning(JoinPoint joinPoint,Object result){
     	System.out.println("@AfterReturning：切点方法返回后执行.....");
     	System.out.println("返回值："+result);
     }

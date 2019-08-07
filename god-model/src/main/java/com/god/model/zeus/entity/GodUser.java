@@ -3,80 +3,102 @@ package com.god.model.zeus.entity;
 import java.io.Serializable;
 import java.util.Date;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 
-public class GodUser implements Serializable {
-    private Integer id;
+/**
+ * 用户表 实体类
+ * 
+ * @author God
+ * @date 2019-08-02 01:21:15
+ */
+public class GodUser implements java.io.Serializable{
+	
+	private static final long serialVersionUID = 1L;	
+	
+	/**
+     * ID 
+     */
+	private Integer id;
+	/**
+     * 名称 
+     */
+	private String name;
+	/**
+     * 密码 
+     */
+	private String password;
+	/**
+     * 昵称 
+     */
+	private String nickname;
+	/**
+     * 状态 0禁用 1启用 
+     */
+	private Integer status;
+	/**
+     * 创建时间 
+     */
+	private Date createTime;
+	/**
+     * 修改时间 
+     */
+	private Date updateTime;
+	
+		
+	public void setId(Integer value) {
+		this.id = value;
+	}
+	
+	public Integer getId() {
+		return this.id;
+	}
+		
+	public void setName(String value) {
+		this.name = value;
+	}
+	
+	public String getName() {
+		return this.name;
+	}
+		
+	public void setPassword(String value) {
+		this.password = value;
+	}
+	
+	public String getPassword() {
+		return this.password;
+	}
+		
+	public void setNickname(String value) {
+		this.nickname = value;
+	}
+	
+	public String getNickname() {
+		return this.nickname;
+	}
+		
+	public void setStatus(Integer value) {
+		this.status = value;
+	}
+	
+	public Integer getStatus() {
+		return this.status;
+	}
+		
+	public void setCreateTime(Date value) {
+		this.createTime = value;
+	}
+	
+	public Date getCreateTime() {
+		return this.createTime;
+	}
+		
+	public void setUpdateTime(Date value) {
+		this.updateTime = value;
+	}
+	
+	public Date getUpdateTime() {
+		return this.updateTime;
+	}
 
-    private String name;
-
-    private String password;
-
-    private String nickname;
-
-    private Integer status;
-
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
-    private Date createTime;
-
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
-    private Date updateTime;
-
-    private static final long serialVersionUID = 1L;
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getNickname() {
-        return nickname;
-    }
-
-    public void setNickname(String nickname) {
-        this.nickname = nickname;
-    }
-
-    public Integer getStatus() {
-        return status;
-    }
-
-    public void setStatus(Integer status) {
-        this.status = status;
-    }
-
-    public Date getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
-
-    public Date getUpdateTime() {
-        return updateTime;
-    }
-
-    public void setUpdateTime(Date updateTime) {
-        this.updateTime = updateTime;
-    }
 }
+

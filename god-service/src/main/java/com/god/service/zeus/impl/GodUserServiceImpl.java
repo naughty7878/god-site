@@ -66,6 +66,7 @@ public class GodUserServiceImpl implements GodUserService{
 	}
 	
 	@Override
+	@Transactional
 	public int update(GodUserBo godUserBo) {
 		String name = godUserBo.getName();
 		String password = godUserBo.getPassword();

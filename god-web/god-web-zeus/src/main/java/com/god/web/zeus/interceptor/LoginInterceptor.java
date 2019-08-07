@@ -39,7 +39,7 @@ public class LoginInterceptor implements HandlerInterceptor {
 	public boolean preHandle(HttpServletRequest request,
 			HttpServletResponse response, Object arg2) throws Exception {
 
-		log.info("User-Agent:" + request.getHeader("User-Agent"));
+		// log.info("User-Agent:" + request.getHeader("User-Agent"));
 		response.setHeader("Content-Type", "text/html;charset=UTF-8");
 		request.setCharacterEncoding("UTF-8");
 		

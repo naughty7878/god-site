@@ -29,7 +29,7 @@
 
 	<!-- Sprin望管理所有的业务逻辑组件等 -->
 	<context:component-scan
-		base-package="com.god.service,com.god.web.zeus.handler,com.god.web.zeus.interceptor">
+		base-package="com.god.service,com.god.web.zeus.handler,com.god.web.zeus.interceptor,com.god.web.zeus.aspect">
 		<context:exclude-filter type="annotation"
 			expression="org.springframework.stereotype.Controller" />
 	</context:component-scan>
