@@ -52,11 +52,16 @@ public class LogParamAspect {
 
 		// 记录入参
 		// 解析参数，可能异常
-		try {
-        	log.info(request.getServletPath() + "\nRequest Params：\n" + objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(args));
-		} catch (Exception e) {
-			log.info(request.getServletPath() + "\nRequest Params：\n" + args);
+		if(args.length == 0) {
+			log.info(request.getServletPath() + "\nRequest Params：\n" + "null");
+		}else {
+			try {
+	        	log.info(request.getServletPath() + "\nRequest Params：\n" + objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(args[0]));
+			} catch (Exception e) {
+				log.info(request.getServletPath() + "\nRequest Params：\n" + args[0]);
+			}
 		}
+		
 		result = pjp.proceed(args);
 		
 		// 记录出参

@@ -10,7 +10,7 @@ import java.util.List;
  * 用户登录日志表 示例类
  * 
  * @author God
- * @date 2019-08-02 01:20:04
+ * @date 2019-08-09 00:29:38
  */
 public class GodUserLoginLogExample implements java.io.Serializable{
 	
@@ -19,6 +19,10 @@ public class GodUserLoginLogExample implements java.io.Serializable{
 	protected String orderByClause;
 	
 	protected boolean distinct;
+	
+	protected Integer start = Integer.valueOf(0);
+	
+	protected Integer end = Integer.valueOf(10000);
 	
 	protected List<Criteria> oredCriteria;
 	
@@ -40,6 +44,22 @@ public class GodUserLoginLogExample implements java.io.Serializable{
 	
 	public boolean isDistinct() {
 	    return distinct;
+	}
+	
+	public void setStart(Integer start) {
+	    this.start = start;
+	}
+	
+	public Integer getStart() {
+	    return start;
+	}
+	
+	public void setEnd(Integer end) {
+	    this.end = end;
+	}
+	
+	public Integer getEnd() {
+	    return end;
 	}
 	
 	public List<Criteria> getOredCriteria() {

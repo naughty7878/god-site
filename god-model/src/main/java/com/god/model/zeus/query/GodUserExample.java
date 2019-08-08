@@ -10,15 +10,19 @@ import java.util.List;
  * 用户表 示例类
  * 
  * @author God
- * @date 2019-08-02 01:21:15
+ * @date 2019-08-09 00:28:40
  */
-public class GodUserExample implements java.io.Serializable{
+public class GodUserExample implements Serializable{
 	
 	private static final long serialVersionUID = 1L;	
 	
 	protected String orderByClause;
 	
 	protected boolean distinct;
+	
+	protected Integer start = Integer.valueOf(0);
+	
+	protected Integer end = Integer.valueOf(10000);
 	
 	protected List<Criteria> oredCriteria;
 	
@@ -40,6 +44,22 @@ public class GodUserExample implements java.io.Serializable{
 	
 	public boolean isDistinct() {
 	    return distinct;
+	}
+	
+	public void setStart(Integer start) {
+	    this.start = start;
+	}
+	
+	public Integer getStart() {
+	    return start;
+	}
+	
+	public void setEnd(Integer end) {
+	    this.end = end;
+	}
+	
+	public Integer getEnd() {
+	    return end;
 	}
 	
 	public List<Criteria> getOredCriteria() {

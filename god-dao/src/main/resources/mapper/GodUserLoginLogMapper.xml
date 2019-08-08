@@ -240,32 +240,35 @@
 	</update>
 	
 	<delete id="deleteByExample" parameterType="com.god.model.zeus.query.GodUserLoginLogExample">
-		delete from god_user
+		DELETE FROM god_user
 		<if test="_parameter != null">
 			<include refid="Example_Where_Clause" />
 		</if>
 	</delete>
 	
 	<select id="countByExample" parameterType="com.god.model.zeus.query.GodUserLoginLogExample" resultType="java.lang.Long">
-		select count(*) from god_user_login_log
+		SELECT count(*) FROM god_user_login_log
 		<if test="_parameter != null">
 			<include refid="Example_Where_Clause" />
 		</if>
 	</select>
 	
 	<select id="selectByExample" parameterType="com.god.model.zeus.query.GodUserLoginLogExample" resultMap="BaseResultMap">
-		select
+		SELECT
 		<if test="distinct">
 			distinct
 		</if>
 		<include refid="Base_Column_List" />
-		from god_user_login_log
+		FROM god_user_login_log
 		<if test="_parameter != null">
 			<include refid="Example_Where_Clause" />
 		</if>
 		<if test="orderByClause != null">
-			order by #{orderByClause}
+			ORDER BY ${orderByClause}
 		</if>
+		<if test="start gt -1 and end lt 10000">
+            LIMIT #{start}, #{end}
+        </if>
 	</select>
 	
 </mapper>

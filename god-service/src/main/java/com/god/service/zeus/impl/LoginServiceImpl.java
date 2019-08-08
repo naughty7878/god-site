@@ -105,6 +105,7 @@ public class LoginServiceImpl implements LoginService {
 			GodUserExample userExample = new GodUserExample();
 			Criteria criteria = userExample.createCriteria();
 			criteria.andNameEqualTo(username);
+			userExample.setEnd(1);
 			List<GodUser> list = godUserDao.selectByExample(userExample);
 			if(list != null && list.size() > 0) {
 				GodUser godUser = list.get(0);
@@ -145,6 +146,7 @@ public class LoginServiceImpl implements LoginService {
 		GodUserLoginLogExample loginLogExample = new GodUserLoginLogExample();
 		loginLogExample.createCriteria().andUserIdEqualTo(godUser.getId());
 		loginLogExample.setOrderByClause("create_time desc");
+		loginLogExample.setEnd(1);
 		List<GodUserLoginLog> logList = godUserLoginLogDao.selectByExample(loginLogExample);
 		if(logList.size() > 0) {
 			GodUserLoginLog godUserLoginLog = logList.get(0);
