@@ -31,11 +31,11 @@ public class GodResourceBo extends PageRequest implements Serializable{
 	/**
      * 描述 
      */
-	private String describe;
+	private String description;
 	/**
      * 上级ID 
      */
-	private Integer parentId;
+	private Long parentId;
 	/**
      * 级别 
      */
@@ -77,16 +77,17 @@ public class GodResourceBo extends PageRequest implements Serializable{
 	public void setCode(String code) {
 		this.code = code;
 	}
-	public String getDescribe() {
-		return describe;
+	
+	public String getDescription() {
+		return description;
 	}
-	public void setDescribe(String describe) {
-		this.describe = describe;
+	public void setDescription(String description) {
+		this.description = description;
 	}
-	public Integer getParentId() {
+	public Long getParentId() {
 		return parentId;
 	}
-	public void setParentId(Integer parentId) {
+	public void setParentId(Long parentId) {
 		this.parentId = parentId;
 	}
 	public Integer getLevel() {

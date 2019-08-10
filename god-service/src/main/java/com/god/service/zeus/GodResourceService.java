@@ -32,7 +32,7 @@ public interface GodResourceService {
 	 * @param ResourceId
 	 * @return
 	 */
-	GodResource getGodResourceById(Long ResourceId);
+	GodResource getGodResourceById(Long resourceId);
 
 	/**
 	 * 可用资源集合

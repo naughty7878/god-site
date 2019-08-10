@@ -7,8 +7,8 @@
         <id property="id" jdbcType="BIGINT" column="id"/>
         <result property="name" jdbcType="VARCHAR" column="name"/>
         <result property="code" jdbcType="VARCHAR" column="code"/>
-        <result property="describe" jdbcType="VARCHAR" column="describe"/>
-        <result property="parentId" jdbcType="INTEGER" column="parent_id"/>
+        <result property="description" jdbcType="VARCHAR" column="description"/>
+        <result property="parentId" jdbcType="BIGINT" column="parent_id"/>
         <result property="level" jdbcType="INTEGER" column="level"/>
         <result property="sort" jdbcType="INTEGER" column="sort"/>
         <result property="url" jdbcType="VARCHAR" column="url"/>
@@ -22,7 +22,7 @@
 		id,
 		name,
 		code,
-		describe,
+		description,
 		parent_id,
 		level,
 		sort,
@@ -41,7 +41,7 @@
         INSERT INTO god_resource (
         	name,
         	code,
-        	describe,
+        	description,
         	parent_id,
         	level,
         	sort,
@@ -53,8 +53,8 @@
         ) VALUES (
         	#{name,jdbcType=VARCHAR},
         	#{code,jdbcType=VARCHAR},
-        	#{describe,jdbcType=VARCHAR},
-        	#{parentId,jdbcType=INTEGER},
+        	#{description,jdbcType=VARCHAR},
+        	#{parentId,jdbcType=BIGINT},
         	#{level,jdbcType=INTEGER},
         	#{sort,jdbcType=INTEGER},
         	#{url,jdbcType=VARCHAR},
@@ -77,8 +77,8 @@
 			<if test="code != null">
 		    	code,
 			</if>
-			<if test="describe != null">
-		    	describe,
+			<if test="description != null">
+		    	description,
 			</if>
 			<if test="parentId != null">
 		    	parent_id,
@@ -112,11 +112,11 @@
        		<if test="code != null">
 	       		#{code,jdbcType=VARCHAR},
 	       	</if>
-       		<if test="describe != null">
-	       		#{describe,jdbcType=VARCHAR},
+       		<if test="description != null">
+	       		#{description,jdbcType=VARCHAR},
 	       	</if>
        		<if test="parentId != null">
-	       		#{parentId,jdbcType=INTEGER},
+	       		#{parentId,jdbcType=BIGINT},
 	       	</if>
        		<if test="level != null">
 	       		#{level,jdbcType=INTEGER},
@@ -146,8 +146,8 @@
         UPDATE god_resource SET
 	        name = #{name,jdbcType=VARCHAR},
 	        code = #{code,jdbcType=VARCHAR},
-	        describe = #{describe,jdbcType=VARCHAR},
-	        parent_id = #{parentId,jdbcType=INTEGER},
+	        description = #{description,jdbcType=VARCHAR},
+	        parent_id = #{parentId,jdbcType=BIGINT},
 	        level = #{level,jdbcType=INTEGER},
 	        sort = #{sort,jdbcType=INTEGER},
 	        url = #{url,jdbcType=VARCHAR},
@@ -167,11 +167,11 @@
 	        <if test="code != null">
 	        	code = #{code,jdbcType=VARCHAR},
 	        </if>
-	        <if test="describe != null">
-	        	describe = #{describe,jdbcType=VARCHAR},
+	        <if test="description != null">
+	        	description = #{description,jdbcType=VARCHAR},
 	        </if>
 	        <if test="parentId != null">
-	        	parent_id = #{parentId,jdbcType=INTEGER},
+	        	parent_id = #{parentId,jdbcType=BIGINT},
 	        </if>
 	        <if test="level != null">
 	        	level = #{level,jdbcType=INTEGER},
@@ -272,8 +272,8 @@
 	        id = #{id,jdbcType=BIGINT},
 	        name = #{name,jdbcType=VARCHAR},
 	        code = #{code,jdbcType=VARCHAR},
-	        describe = #{describe,jdbcType=VARCHAR},
-	        parent_id = #{parentId,jdbcType=INTEGER},
+	        description = #{description,jdbcType=VARCHAR},
+	        parent_id = #{parentId,jdbcType=BIGINT},
 	        level = #{level,jdbcType=INTEGER},
 	        sort = #{sort,jdbcType=INTEGER},
 	        url = #{url,jdbcType=VARCHAR},
@@ -297,11 +297,11 @@
 	        <if test="code != null">
 	        	code = #{code,jdbcType=VARCHAR},
 	        </if>
-	        <if test="describe != null">
-	        	describe = #{describe,jdbcType=VARCHAR},
+	        <if test="description != null">
+	        	description = #{description,jdbcType=VARCHAR},
 	        </if>
 	        <if test="parentId != null">
-	        	parent_id = #{parentId,jdbcType=INTEGER},
+	        	parent_id = #{parentId,jdbcType=BIGINT},
 	        </if>
 	        <if test="level != null">
 	        	level = #{level,jdbcType=INTEGER},

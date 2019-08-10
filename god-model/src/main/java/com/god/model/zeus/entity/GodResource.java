@@ -3,12 +3,14 @@ package com.god.model.zeus.entity;
 import java.io.Serializable;
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 
 /**
  * 资源表 实体类
  * 
  * @author God
- * @date 2019-08-11 00:15:26
+ * @date 2019-08-11 01:24:17
  */
 public class GodResource implements Serializable{
 	
@@ -29,11 +31,11 @@ public class GodResource implements Serializable{
 	/**
      * 描述 
      */
-	private String describe;
+	private String description;
 	/**
      * 上级ID 
      */
-	private Integer parentId;
+	private Long parentId;
 	/**
      * 级别 
      */
@@ -57,10 +59,12 @@ public class GodResource implements Serializable{
 	/**
      * 创建时间 
      */
+	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
 	private Date createTime;
 	/**
      * 更新时间 
      */
+	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
 	private Date updateTime;
 	
 		
@@ -88,19 +92,19 @@ public class GodResource implements Serializable{
 		return this.code;
 	}
 		
-	public void setDescribe(String value) {
-		this.describe = value;
+	public void setDescription(String value) {
+		this.description = value;
 	}
 	
-	public String getDescribe() {
-		return this.describe;
+	public String getDescription() {
+		return this.description;
 	}
 		
-	public void setParentId(Integer value) {
+	public void setParentId(Long value) {
 		this.parentId = value;
 	}
 	
-	public Integer getParentId() {
+	public Long getParentId() {
 		return this.parentId;
 	}
 		

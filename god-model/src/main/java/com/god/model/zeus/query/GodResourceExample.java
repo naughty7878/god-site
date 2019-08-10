@@ -10,7 +10,7 @@ import java.util.List;
  * 资源表 示例类
  * 
  * @author God
- * @date 2019-08-11 00:15:26
+ * @date 2019-08-11 01:24:17
  */
 public class GodResourceExample implements Serializable{
 	
@@ -315,67 +315,67 @@ public class GodResourceExample implements Serializable{
 		    addCriterion("code not between", value1, value2, "code");
 		    return (Criteria) this;
 		}
-		public Criteria andDescribeIsNull() {
-		    addCriterion("describe is null");
+		public Criteria andDescriptionIsNull() {
+		    addCriterion("description is null");
 		    return (Criteria) this;
 		}
-		public Criteria andDescribeIsNotNull() {
-		    addCriterion("describe is not null");
+		public Criteria andDescriptionIsNotNull() {
+		    addCriterion("description is not null");
 		    return (Criteria) this;
 		}
-		public Criteria andDescribeEqualTo(String value) {
-		    addCriterion("describe =", value, "describe");
+		public Criteria andDescriptionEqualTo(String value) {
+		    addCriterion("description =", value, "description");
 		    return (Criteria) this;
 		}
-		public Criteria andDescribeNotEqualTo(String value) {
-		    addCriterion("describe <>", value, "describe");
+		public Criteria andDescriptionNotEqualTo(String value) {
+		    addCriterion("description <>", value, "description");
 		    return (Criteria) this;
 		}
-		public Criteria andDescribeGreaterThan(String value) {
-		    addCriterion("describe >", value, "describe");
+		public Criteria andDescriptionGreaterThan(String value) {
+		    addCriterion("description >", value, "description");
 		    return (Criteria) this;
 		}
-		public Criteria andDescribeGreaterThanOrEqualTo(String value) {
-		    addCriterion("describe >=", value, "describe");
+		public Criteria andDescriptionGreaterThanOrEqualTo(String value) {
+		    addCriterion("description >=", value, "description");
 		    return (Criteria) this;
 		}
-		public Criteria andDescribeLessThan(String value) {
-		    addCriterion("describe <", value, "describe");
-		    return (Criteria) this;
-		}
-		
-		public Criteria andDescribeLessThanOrEqualTo(String value) {
-		    addCriterion("describe <=", value, "describe");
+		public Criteria andDescriptionLessThan(String value) {
+		    addCriterion("description <", value, "description");
 		    return (Criteria) this;
 		}
 		
-		public Criteria andDescribeLike(String value) {
-		    addCriterion("describe like", value, "describe");
+		public Criteria andDescriptionLessThanOrEqualTo(String value) {
+		    addCriterion("description <=", value, "description");
 		    return (Criteria) this;
 		}
 		
-		public Criteria andDescribeNotLike(String value) {
-		    addCriterion("describe not like", value, "describe");
+		public Criteria andDescriptionLike(String value) {
+		    addCriterion("description like", value, "description");
 		    return (Criteria) this;
 		}
 		
-		public Criteria andDescribeIn(List<String> values) {
-		    addCriterion("describe in", values, "describe");
+		public Criteria andDescriptionNotLike(String value) {
+		    addCriterion("description not like", value, "description");
 		    return (Criteria) this;
 		}
 		
-		public Criteria andDescribeNotIn(List<String> values) {
-		    addCriterion("describe not in", values, "describe");
+		public Criteria andDescriptionIn(List<String> values) {
+		    addCriterion("description in", values, "description");
 		    return (Criteria) this;
 		}
 		
-		public Criteria andDescribeBetween(String value1, String value2) {
-		    addCriterion("describe between", value1, value2, "describe");
+		public Criteria andDescriptionNotIn(List<String> values) {
+		    addCriterion("description not in", values, "description");
 		    return (Criteria) this;
 		}
 		
-		public Criteria andDescribeNotBetween(String value1, String value2) {
-		    addCriterion("describe not between", value1, value2, "describe");
+		public Criteria andDescriptionBetween(String value1, String value2) {
+		    addCriterion("description between", value1, value2, "description");
+		    return (Criteria) this;
+		}
+		
+		public Criteria andDescriptionNotBetween(String value1, String value2) {
+		    addCriterion("description not between", value1, value2, "description");
 		    return (Criteria) this;
 		}
 		public Criteria andParentIdIsNull() {
@@ -386,48 +386,48 @@ public class GodResourceExample implements Serializable{
 		    addCriterion("parent_id is not null");
 		    return (Criteria) this;
 		}
-		public Criteria andParentIdEqualTo(Integer value) {
+		public Criteria andParentIdEqualTo(Long value) {
 		    addCriterion("parent_id =", value, "parentId");
 		    return (Criteria) this;
 		}
-		public Criteria andParentIdNotEqualTo(Integer value) {
+		public Criteria andParentIdNotEqualTo(Long value) {
 		    addCriterion("parent_id <>", value, "parentId");
 		    return (Criteria) this;
 		}
-		public Criteria andParentIdGreaterThan(Integer value) {
+		public Criteria andParentIdGreaterThan(Long value) {
 		    addCriterion("parent_id >", value, "parentId");
 		    return (Criteria) this;
 		}
-		public Criteria andParentIdGreaterThanOrEqualTo(Integer value) {
+		public Criteria andParentIdGreaterThanOrEqualTo(Long value) {
 		    addCriterion("parent_id >=", value, "parentId");
 		    return (Criteria) this;
 		}
-		public Criteria andParentIdLessThan(Integer value) {
+		public Criteria andParentIdLessThan(Long value) {
 		    addCriterion("parent_id <", value, "parentId");
 		    return (Criteria) this;
 		}
 		
-		public Criteria andParentIdLessThanOrEqualTo(Integer value) {
+		public Criteria andParentIdLessThanOrEqualTo(Long value) {
 		    addCriterion("parent_id <=", value, "parentId");
 		    return (Criteria) this;
 		}
 		
-		public Criteria andParentIdIn(List<Integer> values) {
+		public Criteria andParentIdIn(List<Long> values) {
 		    addCriterion("parent_id in", values, "parentId");
 		    return (Criteria) this;
 		}
 		
-		public Criteria andParentIdNotIn(List<Integer> values) {
+		public Criteria andParentIdNotIn(List<Long> values) {
 		    addCriterion("parent_id not in", values, "parentId");
 		    return (Criteria) this;
 		}
 		
-		public Criteria andParentIdBetween(Integer value1, Integer value2) {
+		public Criteria andParentIdBetween(Long value1, Long value2) {
 		    addCriterion("parent_id between", value1, value2, "parentId");
 		    return (Criteria) this;
 		}
 		
-		public Criteria andParentIdNotBetween(Integer value1, Integer value2) {
+		public Criteria andParentIdNotBetween(Long value1, Long value2) {
 		    addCriterion("parent_id not between", value1, value2, "parentId");
 		    return (Criteria) this;
 		}

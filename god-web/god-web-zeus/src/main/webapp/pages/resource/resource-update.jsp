@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE HTML>
 <html>
 <head>
@@ -27,19 +30,66 @@
 </head>
 <body>
 <article class="page-container">
-	<form class="form form-horizontal" id="form-role-add">
-	<input type="hidden" name="id" value="${godRole.id }">
+	<form class="form form-horizontal" id="form-resource-add">
+	<input type="hidden" name="id" value="${godResource.id }">
 	<div class="row cl">
 		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>资源：</label>
 		<div class="formControls col-xs-8 col-sm-9">   
-			<input type="text" class="input-text" value="${godRole.name }" placeholder="" id="roleName" name="name" readonly="readonly">
+			<input type="text" class="input-text" value="${godResource.name }" placeholder="" id="resourceName" name="resourceName" readonly="readonly">
 		</div>
 	</div>
 	<div class="row cl">
 		<label class="form-label col-xs-4 col-sm-3">描述：</label>
 		<div class="formControls col-xs-8 col-sm-9">
-			<textarea name="description" cols="" rows="" class="textarea"  placeholder="说点什么...100个字符以内" dragonfly="true" onKeyUp="$.Huitextarealength(this,100)" >${godRole.description }</textarea>
+			<textarea name="description" cols="" rows="" class="textarea"  placeholder="说点什么...100个字符以内" dragonfly="true" onKeyUp="$.Huitextarealength(this,100)" >${godResource.description }</textarea>
 			<p class="textarea-numberbar"><em class="textarea-length">0</em>/100</p>
+		</div>
+	</div>
+	<div class="row cl">
+		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>状态：</label>
+		<div class="formControls col-xs-8 col-sm-9 skin-minimal">
+			<div class="radio-box">
+				<input name="status" type="radio" id="status-1"  value="1" <c:if test="${godResource.status == 1}">checked</c:if> > 
+				<label for="status-1">启用</label>
+			</div>
+			<div class="radio-box">
+				<input type="radio" id="status-2" name="status" value="0" <c:if test="${godResource.status == 0}">checked</c:if>>
+				<label for="status-2">禁用</label>
+			</div>
+		</div>
+	</div>
+	<div class="row cl">
+		<label class="form-label col-xs-4 col-sm-3"><span class="c-red"></span>父级ID：</label>
+		<div class="formControls col-xs-8 col-sm-9">
+			<input type="text" class="input-text" value="${godResource.parentId }" placeholder="" id="parentId" name="parentId" >
+		</div>
+	</div>
+	<div class="row cl">
+		<label class="form-label col-xs-4 col-sm-3">级别：</label>
+		<div class="formControls col-xs-8 col-sm-9"> <span class="select-box" style="width:150px;">
+			<select class="select" name="level" size="1">
+				<option value="1" <c:if test="${godResource.level == 1}">selected="selected"</c:if> >1</option>
+				<option value="2" <c:if test="${godResource.level == 2}">selected="selected"</c:if> >2</option>
+				<option value="3" <c:if test="${godResource.level == 3}">selected="selected"</c:if> >3</option>
+			</select>
+			</span> </div>
+	</div>
+	<div class="row cl">
+		<label class="form-label col-xs-4 col-sm-3"><span class="c-red"></span>url地址：</label>
+		<div class="formControls col-xs-8 col-sm-9">
+			<input type="text" class="input-text" value="${godResource.url }" placeholder="" id="url" name="url">
+		</div>
+	</div>
+	<div class="row cl">
+		<label class="form-label col-xs-4 col-sm-3"><span class="c-red"></span>图标：</label>
+		<div class="formControls col-xs-8 col-sm-9">
+			<input type="text" class="input-text" value="${godResource.icon }" placeholder="" id="icon" name="icon">
+		</div>
+	</div>
+	<div class="row cl">
+		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>排序：</label>
+		<div class="formControls col-xs-8 col-sm-9">
+			<input type="text" class="input-text" value="${godResource.sort }" placeholder="" id="sort" name="sort">
 		</div>
 	</div>
 	<div class="row cl">
@@ -68,12 +118,21 @@ $(function(){
 		increaseArea: '20%'
 	});
 	
-	$("#form-role-add").validate({
+	$("#form-resource-add").validate({
 		rules:{
-			roleName:{
+			resourceName:{
 				required:true,
 				minlength:4,
 				maxlength:16
+			},
+			status:{
+				required:true,
+			},
+			sort:{
+				required:true
+			},
+			level:{
+				required:true,
 			}
 		},
 		onkeyup:false,
@@ -81,18 +140,30 @@ $(function(){
 		success:"valid",
 		submitHandler:function(form){
 			var id = $('input[name="id"]').val();
-			var name = $('input[name="name"]').val();
+			var name = $('input[name="resourceName"]').val();
 			var description = $('textarea[name="description"]').val();
+			var status = $('input[name="status"]:checked').val();
+			var parentId = $('input[name="parentId"]').val();
+			var level = $('select[name="level"]').val();
+			var url = $('input[name="url"]').val();
+			var icon = $('input[name="icon"]').val();
+			var sort = $('input[name="sort"]').val();
 			
 			data = {};
 			data.id = id;
 			data.name = name;
 			data.description = description;
+			data.status = status;
+			data.parentId = parentId;
+			data.level = level;
+			data.url = url;
+			data.icon = icon;
+			data.sort = sort;
 		    param = {};
 		    param.data = data;
 		    $.ajax({
 				type:'post',
-				url: '${pageContext.request.contextPath }/role/update' ,
+				url: '${pageContext.request.contextPath }/resource/update' ,
 				contentType:'application/json;charset=utf-8',
 				data: JSON.stringify(param),
 				dataType:"json",

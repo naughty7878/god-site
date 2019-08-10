@@ -12,7 +12,7 @@ import com.god.model.zeus.query.GodResourceExample;
  * 资源表 DAO层
  * 
  * @author God
- * @date 2019-08-11 00:15:26
+ * @date 2019-08-11 01:24:17
  */
 public interface GodResourceDao {
 	

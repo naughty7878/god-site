@@ -27,11 +27,11 @@
 </head>
 <body>
 <article class="page-container">
-	<form class="form form-horizontal" id="form-admin-add">
+	<form class="form form-horizontal" id="form-resource-add">
 	<div class="row cl">
 		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>名称：</label>
 		<div class="formControls col-xs-8 col-sm-9">
-			<input type="text" class="input-text" value="" placeholder="" id="adminName" name="name">
+			<input type="text" class="input-text" value="" placeholder="" id="resourceName" name="resourceName">
 		</div>
 	</div>
 	<div class="row cl">
@@ -39,6 +39,53 @@
 		<div class="formControls col-xs-8 col-sm-9">
 			<textarea name="description" cols="" rows="" class="textarea"  placeholder="说点什么...100个字符以内" dragonfly="true" onKeyUp="$.Huitextarealength(this,100)"></textarea>
 			<p class="textarea-numberbar"><em class="textarea-length">0</em>/100</p>
+		</div>
+	</div>
+	<div class="row cl">
+		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>状态：</label>
+		<div class="formControls col-xs-8 col-sm-9 skin-minimal">
+			<div class="radio-box">
+				<input name="status" type="radio" id="status-1" checked value="1">
+				<label for="status-1">启用</label>
+			</div>
+			<div class="radio-box">
+				<input type="radio" id="status-2" name="status" value="0">
+				<label for="status-2">禁用</label>
+			</div>
+		</div>
+	</div>
+	<div class="row cl">
+		<label class="form-label col-xs-4 col-sm-3"><span class="c-red"></span>父级ID：</label>
+		<div class="formControls col-xs-8 col-sm-9">
+			<input type="text" class="input-text" value="" placeholder="" id="parentId" name="parentId">
+		</div>
+	</div>
+	<div class="row cl">
+		<label class="form-label col-xs-4 col-sm-3">级别：</label>
+		<div class="formControls col-xs-8 col-sm-9"> <span class="select-box" style="width:150px;">
+			<select class="select" name="level" size="1">
+				<option value="1">1</option>
+				<option value="2">2</option>
+				<option value="3">3</option>
+			</select>
+			</span> </div>
+	</div>
+	<div class="row cl">
+		<label class="form-label col-xs-4 col-sm-3"><span class="c-red"></span>url地址：</label>
+		<div class="formControls col-xs-8 col-sm-9">
+			<input type="text" class="input-text" value="" placeholder="" id="url" name="url">
+		</div>
+	</div>
+	<div class="row cl">
+		<label class="form-label col-xs-4 col-sm-3"><span class="c-red"></span>图标：</label>
+		<div class="formControls col-xs-8 col-sm-9">
+			<input type="text" class="input-text" value="" placeholder="" id="icon" name="icon">
+		</div>
+	</div>
+	<div class="row cl">
+		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>排序：</label>
+		<div class="formControls col-xs-8 col-sm-9">
+			<input type="text" class="input-text" value="" placeholder="" id="sort" name="sort">
 		</div>
 	</div>
 	
@@ -68,42 +115,50 @@ $(function(){
 		increaseArea: '20%'
 	});
 	
-	$("#form-admin-add").validate({
+	$("#form-resource-add").validate({
 		rules:{
-			adminName:{
+			resourceName:{
 				required:true,
 				minlength:4,
 				maxlength:16
+			},
+			status:{
+				required:true,
+			},
+			sort:{
+				required:true
+			},
+			level:{
+				required:true,
 			}
-			/* sex:{
-				required:true,
-			},
-			phone:{
-				required:true,
-				isPhone:true,
-			},
-			email:{
-				required:true,
-				email:true,
-			},
-			adminRole:{
-				required:true,
-			}, */
 		},
 		onkeyup:false,
 		focusCleanup:true,
 		success:"valid",
 		submitHandler:function(form){
-			var name = $('input[name="name"]').val();
+			var name = $('input[name="resourceName"]').val();
 			var description = $('textarea[name="description"]').val();
+			var status = $('input[name="status"]:checked').val();
+			var parentId = $('input[name="parentId"]').val();
+			var level = $('select[name="level"]').val();
+			var url = $('input[name="url"]').val();
+			var icon = $('input[name="icon"]').val();
+			var sort = $('input[name="sort"]').val();
 			data = {};
 			data.name = name;
 			data.description = description;
+			data.status = status;
+			data.parentId = parentId;
+			data.level = level;
+			data.url = url;
+			data.icon = icon;
+			data.sort = sort;
+			
 		    param = {};
 		    param.data = data;
 		    $.ajax({
 				type:'post',
-				url: '${pageContext.request.contextPath }/role/add' ,
+				url: '${pageContext.request.contextPath }/resource/add' ,
 				contentType:'application/json;charset=utf-8',
 				data: JSON.stringify(param),
 				dataType:"json",

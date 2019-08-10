@@ -51,14 +51,14 @@
 				id="datemax" class="input-text Wdate" style="width: 120px;">
 			<input type="text" class="input-text" style="width: 250px"
 				placeholder="资源名称" id="" name="keyword">
-			<button onclick="search_role()" type="submit" class="btn btn-success" id="search-user-btn" name="">
+			<button onclick="search_resource()" type="submit" class="btn btn-success" id="search-user-btn" name="">
 				<i class="Hui-iconfont">&#xe665;</i> 搜资源
 			</button>
 		</div>
 		<div class="cl pd-5 bg-1 bk-gray mt-20">
 			<span class="l">
 				<!-- <a href="javascript:;" onclick="datadel()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i>批量删除</a> --> 
-				<a href="javascript:;" onclick="role_add('添加资源','${pageContext.request.contextPath }/resource/toAdd','800','500')"
+				<a href="javascript:;" onclick="resource_add('添加资源','${pageContext.request.contextPath }/resource/toAdd','800','500')"
 				class="btn btn-primary radius"><i class="Hui-iconfont">&#xe600;</i>
 					添加资源</a></span> <span class="r">
 			</span>
@@ -72,8 +72,12 @@
 					<th width="25"><input type="checkbox" name="" value=""></th>
 					<th width="40">ID</th>
 					<th width="150">名称</th>
-					<th width="200">描述</th>
-					<th width="150">创建时间</th>
+					<th width="150">描述</th>
+					<th width="50">父级ID</th>
+					<th width="40">级别</th>
+					<th width="150">URL地址</th>
+					<th width="40">排序</th>
+					<th width="200">创建时间</th>
 					<th width="100">是否已启用</th>
 					<th width="100">操作</th>
 				</tr>
@@ -120,32 +124,6 @@
 	<script type="text/javascript" src="${pageContext.request.contextPath }/lib/datatables/1.10.15/jquery.dataTables.min.js"></script>
 	<script type="text/javascript" src="${pageContext.request.contextPath }/lib/laypage/1.2/laypage.js"></script>
 	<script src="${pageContext.request.contextPath }/lib/layui/layui.js"></script>
-	<script type="text/javascript">
-		
-		/*管理员-删除*/
-		function admin_del(obj, id) {
-			layer.confirm('确认要删除吗？', function(index) {
-				$.ajax({
-					type : 'POST',
-					url : '',
-					dataType : 'json',
-					success : function(data) {
-						$(obj).parents("tr").remove();
-						layer.msg('已删除!', {
-							icon : 1,
-							time : 1000
-						});
-					},
-					error : function(data) {
-						console.log(data.msg);
-					},
-				});
-			});
-		}
-
-		
-		
-	</script>
 	<script type="text/javascript">
 		$(function() {
 			var page_js = {
@@ -238,11 +216,15 @@
 		        info += '<td>' + obj.id + '</td>';
 		        info += '<td>' + obj.name + '</td>';
 		        info += '<td>' + obj.description + '</td>';
+		        info += '<td>' + obj.parentId + '</td>';
+		        info += '<td>' + obj.level + '</td>';
+		        info += '<td>' + obj.url + '</td>';
+		        info += '<td>' + obj.sort + '</td>';
 		        info += '<td>' + obj.createTime + '</td>';
 		        info += (obj.status == 1 ? '<td class="td-status"><span class="label label-success radius">已启用</span></td>' : '<td class="td-status"><span class="label label-default radius">已禁用</span></td>');
 		        info += '<td class="td-manage">';
-		        info += (obj.status == 1 ? '<a style="text-decoration: none" onClick="role_stop(this,'+ obj.id +')" href="javascript:;" title="停用"><i class="Hui-iconfont">&#xe631;</i></a>' : '<a onclick="role_start(this,'+ obj.id +')" href="javascript:;" title="启用" style="text-decoration:none"><i class="Hui-iconfont">&#xe615;</i></a>');
-		        info += '<a title="编辑" href="javascript:;" onclick="role_update(\'资源编辑\',\'${pageContext.request.contextPath }/resource/toUpdate/'+ obj.id +'\',' + obj.id + ',\'800\', \'500\')" class="ml-5" style="text-decoration: none"><i class="Hui-iconfont">&#xe6df;</i></a>';
+		        info += (obj.status == 1 ? '<a style="text-decoration: none" onClick="resource_stop(this,'+ obj.id +')" href="javascript:;" title="停用"><i class="Hui-iconfont">&#xe631;</i></a>' : '<a onclick="resource_start(this,'+ obj.id +')" href="javascript:;" title="启用" style="text-decoration:none"><i class="Hui-iconfont">&#xe615;</i></a>');
+		        info += '<a title="编辑" href="javascript:;" onclick="resource_update(\'资源编辑\',\'${pageContext.request.contextPath }/resource/toUpdate/'+ obj.id +'\',' + obj.id + ',\'800\', \'500\')" class="ml-5" style="text-decoration: none"><i class="Hui-iconfont">&#xe6df;</i></a>';
 		        // info += '<a title="删除" href="javascript:;" onclick="admin_del(this,\'1\')" class="ml-5" style="text-decoration: none"><i class="Hui-iconfont">&#xe6e2;</i></a>';
 		        info += '</td>';
 		        info += '</tr>';
@@ -250,7 +232,7 @@
 		    });
 		}
 		/*管理员-查询*/
-		function search_role(pageConf){
+		function search_resource(pageConf){
 			var beginDate = $('#datemin').val();
 			var endDate = $('#datemax').val();
 			var name = $('input[name="keyword"]').val();
@@ -267,7 +249,7 @@
 		}
 		
 		/*管理员-停用*/
-		function role_stop(obj, id) {
+		function resource_stop(obj, id) {
 			layer.confirm('确认要停用吗？',function(index) {
 				$.ajax({
 					type:'post',
@@ -277,7 +259,7 @@
 					success:function(data){//返回json结果
 						if(data.code == 0) {
 							//此处请求后台程序，下方是成功后的前台处理……
-							$(obj).parents("tr").find(".td-manage").prepend('<a onClick="role_start(this,'+id+')" href="javascript:;" title="启用" style="text-decoration:none"><i class="Hui-iconfont">&#xe615;</i></a>');
+							$(obj).parents("tr").find(".td-manage").prepend('<a onClick="resource_start(this,'+id+')" href="javascript:;" title="启用" style="text-decoration:none"><i class="Hui-iconfont">&#xe615;</i></a>');
 							$(obj).parents("tr").find(".td-status").html('<span class="label label-default radius">已禁用</span>');
 							$(obj).remove();
 							layer.msg('已停用!', {
@@ -296,7 +278,7 @@
 		}
 
 		/*管理员-启用*/
-		function role_start(obj, id) {
+		function resource_start(obj, id) {
 			layer.confirm('确认要启用吗？',function(index) {
 				$.ajax({
 					type:'post',
@@ -306,7 +288,7 @@
 					success:function(data){//返回json结果
 						if(data.code == 0) {
 							//此处请求后台程序，下方是成功后的前台处理……
-							$(obj).parents("tr").find(".td-manage").prepend( '<a onClick="role_stop(this,'+id+')" href="javascript:;" title="停用" style="text-decoration:none"><i class="Hui-iconfont">&#xe631;</i></a>');
+							$(obj).parents("tr").find(".td-manage").prepend( '<a onClick="resource_stop(this,'+id+')" href="javascript:;" title="停用" style="text-decoration:none"><i class="Hui-iconfont">&#xe631;</i></a>');
 							$(obj).parents("tr").find(".td-status").html('<span class="label label-success radius">已启用</span>');
 							$(obj).remove();
 							layer.msg('已启用!', {
@@ -333,11 +315,11 @@
 		 h		弹出层高度（缺省调默认值）
 		 */
 		/*管理员-增加*/
-		function role_add(title, url, w, h) {
+		function resource_add(title, url, w, h) {
 			layer_show(title, url, w, h);
 		}
 		/*管理员-编辑*/
-		function role_update(title, url, id, w, h) {
+		function resource_update(title, url, id, w, h) {
 			layer_show(title, url, w, h);
 		}
 	</script>

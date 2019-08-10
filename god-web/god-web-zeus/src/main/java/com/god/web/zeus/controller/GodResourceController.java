@@ -78,7 +78,10 @@ public class GodResourceController {
 	public BaseOutput update(@RequestBody BaseInput<GodResourceBo> input){
 		
 		int n = rodResourceService.update(input.getData());
-		return BaseOutput.OK("更新成功");
+		if(n == 1) {
+			return BaseOutput.OK("更新成功");
+		}
+		return BaseOutput.ERROR(500,"更新失败");
 	}
 	
 	/**
