@@ -1,12 +1,18 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
 
-<mapper namespace="com.god.dao.zeus.GodRoleDao">
+<mapper namespace="com.god.dao.zeus.GodResourceDao">
 
-	<resultMap id="BaseResultMap" type="com.god.model.zeus.entity.GodRole">
+	<resultMap id="BaseResultMap" type="com.god.model.zeus.entity.GodResource">
         <id property="id" jdbcType="BIGINT" column="id"/>
         <result property="name" jdbcType="VARCHAR" column="name"/>
-        <result property="description" jdbcType="VARCHAR" column="description"/>
+        <result property="code" jdbcType="VARCHAR" column="code"/>
+        <result property="describe" jdbcType="VARCHAR" column="describe"/>
+        <result property="parentId" jdbcType="INTEGER" column="parent_id"/>
+        <result property="level" jdbcType="INTEGER" column="level"/>
+        <result property="sort" jdbcType="INTEGER" column="sort"/>
+        <result property="url" jdbcType="VARCHAR" column="url"/>
+        <result property="icon" jdbcType="VARCHAR" column="icon"/>
         <result property="status" jdbcType="INTEGER" column="status"/>
         <result property="createTime" jdbcType="TIMESTAMP" column="create_time"/>
         <result property="updateTime" jdbcType="TIMESTAMP" column="update_time"/>
@@ -15,43 +21,79 @@
 	<sql id="Base_Column_List">
 		id,
 		name,
-		description,
+		code,
+		describe,
+		parent_id,
+		level,
+		sort,
+		url,
+		icon,
 		status,
 		create_time,
 		update_time
 	</sql>
 	
 	<!-- useGeneratedKeys="true" keyProperty="xxx" for sqlserver and mysql -->
-	<insert id="insert" parameterType="com.god.model.zeus.entity.GodRole" >
+	<insert id="insert" parameterType="com.god.model.zeus.entity.GodResource" >
 	    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
 			SELECT LAST_INSERT_ID()
 	   	</selectKey>
-        INSERT INTO god_role (
+        INSERT INTO god_resource (
         	name,
-        	description,
+        	code,
+        	describe,
+        	parent_id,
+        	level,
+        	sort,
+        	url,
+        	icon,
         	status,
         	create_time,
         	update_time
         ) VALUES (
         	#{name,jdbcType=VARCHAR},
-        	#{description,jdbcType=VARCHAR},
+        	#{code,jdbcType=VARCHAR},
+        	#{describe,jdbcType=VARCHAR},
+        	#{parentId,jdbcType=INTEGER},
+        	#{level,jdbcType=INTEGER},
+        	#{sort,jdbcType=INTEGER},
+        	#{url,jdbcType=VARCHAR},
+        	#{icon,jdbcType=VARCHAR},
         	#{status,jdbcType=INTEGER},
         	#{createTime,jdbcType=TIMESTAMP},
         	#{updateTime,jdbcType=TIMESTAMP}
         )
 	</insert>
 	
-	<insert id="insertSelective" parameterType="com.god.model.zeus.entity.GodRole" >
+	<insert id="insertSelective" parameterType="com.god.model.zeus.entity.GodResource" >
 	   	<selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
 			SELECT LAST_INSERT_ID()
 		</selectKey>
-	   	INSERT INTO god_role 
+	   	INSERT INTO god_resource 
 	   	<trim prefix="(" suffix=")" suffixOverrides=",">
 			<if test="name != null">
 		    	name,
 			</if>
-			<if test="description != null">
-		    	description,
+			<if test="code != null">
+		    	code,
+			</if>
+			<if test="describe != null">
+		    	describe,
+			</if>
+			<if test="parentId != null">
+		    	parent_id,
+			</if>
+			<if test="level != null">
+		    	level,
+			</if>
+			<if test="sort != null">
+		    	sort,
+			</if>
+			<if test="url != null">
+		    	url,
+			</if>
+			<if test="icon != null">
+		    	icon,
 			</if>
 			<if test="status != null">
 		    	status,
@@ -67,8 +109,26 @@
        		<if test="name != null">
 	       		#{name,jdbcType=VARCHAR},
 	       	</if>
-       		<if test="description != null">
-	       		#{description,jdbcType=VARCHAR},
+       		<if test="code != null">
+	       		#{code,jdbcType=VARCHAR},
+	       	</if>
+       		<if test="describe != null">
+	       		#{describe,jdbcType=VARCHAR},
+	       	</if>
+       		<if test="parentId != null">
+	       		#{parentId,jdbcType=INTEGER},
+	       	</if>
+       		<if test="level != null">
+	       		#{level,jdbcType=INTEGER},
+	       	</if>
+       		<if test="sort != null">
+	       		#{sort,jdbcType=INTEGER},
+	       	</if>
+       		<if test="url != null">
+	       		#{url,jdbcType=VARCHAR},
+	       	</if>
+       		<if test="icon != null">
+	       		#{icon,jdbcType=VARCHAR},
 	       	</if>
        		<if test="status != null">
 	       		#{status,jdbcType=INTEGER},
@@ -83,9 +143,15 @@
 	</insert>
     
 	<update id="updateByPrimaryKey" >
-        UPDATE god_role SET
+        UPDATE god_resource SET
 	        name = #{name,jdbcType=VARCHAR},
-	        description = #{description,jdbcType=VARCHAR},
+	        code = #{code,jdbcType=VARCHAR},
+	        describe = #{describe,jdbcType=VARCHAR},
+	        parent_id = #{parentId,jdbcType=INTEGER},
+	        level = #{level,jdbcType=INTEGER},
+	        sort = #{sort,jdbcType=INTEGER},
+	        url = #{url,jdbcType=VARCHAR},
+	        icon = #{icon,jdbcType=VARCHAR},
 	        status = #{status,jdbcType=INTEGER},
 	        create_time = #{createTime,jdbcType=TIMESTAMP},
 	        update_time = #{updateTime,jdbcType=TIMESTAMP}
@@ -94,12 +160,30 @@
 	</update>
 	
 	<update id="updateByPrimaryKeySelective" >
-        UPDATE god_role SET
+        UPDATE god_resource SET
 	        <if test="name != null">
 	        	name = #{name,jdbcType=VARCHAR},
 	        </if>
-	        <if test="description != null">
-	        	description = #{description,jdbcType=VARCHAR},
+	        <if test="code != null">
+	        	code = #{code,jdbcType=VARCHAR},
+	        </if>
+	        <if test="describe != null">
+	        	describe = #{describe,jdbcType=VARCHAR},
+	        </if>
+	        <if test="parentId != null">
+	        	parent_id = #{parentId,jdbcType=INTEGER},
+	        </if>
+	        <if test="level != null">
+	        	level = #{level,jdbcType=INTEGER},
+	        </if>
+	        <if test="sort != null">
+	        	sort = #{sort,jdbcType=INTEGER},
+	        </if>
+	        <if test="url != null">
+	        	url = #{url,jdbcType=VARCHAR},
+	        </if>
+	        <if test="icon != null">
+	        	icon = #{icon,jdbcType=VARCHAR},
 	        </if>
 	        <if test="status != null">
 	        	status = #{status,jdbcType=INTEGER},
@@ -115,13 +199,13 @@
 	</update>
 
     <delete id="deleteByPrimaryKey">
-        DELETE FROM god_role WHERE
+        DELETE FROM god_resource WHERE
         id = #{id,jdbcType=BIGINT}
     </delete>
     
     <select id="selectByPrimaryKey" resultMap="BaseResultMap">
 		SELECT <include refid="Base_Column_List" />
-	    FROM god_role
+	    FROM god_resource
         WHERE 
 	        id = #{id,jdbcType=BIGINT}
 	</select>
@@ -184,10 +268,16 @@
 	</sql>
 	
 	<update id="updateByExample" parameterType="map">
-		UPDATE god_role SET
+		UPDATE god_resource SET
 	        id = #{id,jdbcType=BIGINT},
 	        name = #{name,jdbcType=VARCHAR},
-	        description = #{description,jdbcType=VARCHAR},
+	        code = #{code,jdbcType=VARCHAR},
+	        describe = #{describe,jdbcType=VARCHAR},
+	        parent_id = #{parentId,jdbcType=INTEGER},
+	        level = #{level,jdbcType=INTEGER},
+	        sort = #{sort,jdbcType=INTEGER},
+	        url = #{url,jdbcType=VARCHAR},
+	        icon = #{icon,jdbcType=VARCHAR},
 	        status = #{status,jdbcType=INTEGER},
 	        create_time = #{createTime,jdbcType=TIMESTAMP},
 	        update_time = #{updateTime,jdbcType=TIMESTAMP}
@@ -197,15 +287,33 @@
 	</update>
 	
 	<update id="updateByExampleSelective" parameterType="map">
-		UPDATE god_role SET
+		UPDATE god_resource SET
 	        <if test="id != null">
 	        	id = #{id,jdbcType=BIGINT},
 	        </if>
 	        <if test="name != null">
 	        	name = #{name,jdbcType=VARCHAR},
 	        </if>
-	        <if test="description != null">
-	        	description = #{description,jdbcType=VARCHAR},
+	        <if test="code != null">
+	        	code = #{code,jdbcType=VARCHAR},
+	        </if>
+	        <if test="describe != null">
+	        	describe = #{describe,jdbcType=VARCHAR},
+	        </if>
+	        <if test="parentId != null">
+	        	parent_id = #{parentId,jdbcType=INTEGER},
+	        </if>
+	        <if test="level != null">
+	        	level = #{level,jdbcType=INTEGER},
+	        </if>
+	        <if test="sort != null">
+	        	sort = #{sort,jdbcType=INTEGER},
+	        </if>
+	        <if test="url != null">
+	        	url = #{url,jdbcType=VARCHAR},
+	        </if>
+	        <if test="icon != null">
+	        	icon = #{icon,jdbcType=VARCHAR},
 	        </if>
 	        <if test="status != null">
 	        	status = #{status,jdbcType=INTEGER},
@@ -221,27 +329,27 @@
 		</if>
 	</update>
 	
-	<delete id="deleteByExample" parameterType="com.god.model.zeus.query.GodRoleExample">
-		DELETE FROM god_role
+	<delete id="deleteByExample" parameterType="com.god.model.zeus.query.GodResourceExample">
+		DELETE FROM god_resource
 		<if test="_parameter != null">
 			<include refid="Example_Where_Clause" />
 		</if>
 	</delete>
 	
-	<select id="countByExample" parameterType="com.god.model.zeus.query.GodRoleExample" resultType="java.lang.Long">
-		SELECT count(*) FROM god_role
+	<select id="countByExample" parameterType="com.god.model.zeus.query.GodResourceExample" resultType="java.lang.Long">
+		SELECT count(*) FROM god_resource
 		<if test="_parameter != null">
 			<include refid="Example_Where_Clause" />
 		</if>
 	</select>
 	
-	<select id="selectByExample" parameterType="com.god.model.zeus.query.GodRoleExample" resultMap="BaseResultMap">
+	<select id="selectByExample" parameterType="com.god.model.zeus.query.GodResourceExample" resultMap="BaseResultMap">
 		SELECT
 		<if test="distinct">
 			distinct
 		</if>
 		<include refid="Base_Column_List" />
-		FROM god_role
+		FROM god_resource
 		<if test="_parameter != null">
 			<include refid="Example_Where_Clause" />
 		</if>

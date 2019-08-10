@@ -1,8 +1,10 @@
 package com.god.service.zeus;
 
 
+import java.util.List;
+
 import com.god.common.bean.PageResult;
-import com.god.model.base.bo.GodRoleBo;
+import com.god.model.zeus.bo.GodRoleBo;
 import com.god.model.zeus.entity.GodRole;
 
 public interface GodRoleService {
@@ -15,7 +17,7 @@ public interface GodRoleService {
 	PageResult<GodRole> pageList(GodRoleBo godRoleBo);
 
 	/**
-	 * 更新用户
+	 * 更新角色
 	 * @param data
 	 */
 	int update(GodRoleBo godRoleBo);
@@ -26,6 +28,17 @@ public interface GodRoleService {
 	 */
 	int add(GodRoleBo godRoleBo);
 
+	/**
+	 * 根据ID，查询角色
+	 * @param roleId
+	 * @return
+	 */
 	GodRole getGodRoleById(Long roleId);
+
+	/**
+	 * 可用角色集合
+	 * @return
+	 */
+	List<GodRole> availableList();
 	
 }

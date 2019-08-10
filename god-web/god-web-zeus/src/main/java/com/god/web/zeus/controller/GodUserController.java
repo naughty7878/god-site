@@ -15,8 +15,9 @@ import org.springframework.web.servlet.ModelAndView;
 import com.god.common.bean.BaseInput;
 import com.god.common.bean.BaseOutput;
 import com.god.common.bean.PageResult;
-import com.god.model.base.bo.GodUserBo;
+import com.god.model.zeus.bo.GodUserBo;
 import com.god.model.zeus.entity.GodUser;
+import com.god.model.zeus.vo.GodUserVo;
 import com.god.service.zeus.GodUserService;
 
 @Controller
@@ -52,26 +53,28 @@ public class GodUserController {
 	
 	@RequestMapping(value="/pageList", method=RequestMethod.POST)
 	@ResponseBody
-	public BaseOutput<PageResult<GodUser>> pageList(@RequestBody BaseInput<GodUserBo> input){
+	public BaseOutput<PageResult<GodUserVo>> pageList(@RequestBody BaseInput<GodUserBo> input){
 		
-		PageResult<GodUser> pageResult = userService.pageList(input.getData());
+		PageResult<GodUserVo> pageResult = userService.pageList(input.getData());
 		
 		return BaseOutput.OK(pageResult);
 	}
 	
 	@RequestMapping(value="/update", method=RequestMethod.POST)
 	@ResponseBody
-	public BaseOutput update(@RequestBody BaseInput<GodUserBo> input){
+	public BaseOutput<?> update(@RequestBody BaseInput<GodUserBo> input){
 		
 		int n = userService.update(input.getData());
-		System.out.println(n);
-		return BaseOutput.OK("更新成功");
+		if(n == 1) {
+			return BaseOutput.OK("更新成功");
+		}
+		return BaseOutput.ERROR(500,"更新失败");
 	}
 	
 	
 	@RequestMapping(value="/add", method=RequestMethod.POST)
 	@ResponseBody
-	public BaseOutput add(@RequestBody BaseInput<GodUserBo> input){
+	public BaseOutput<?> add(@RequestBody BaseInput<GodUserBo> input){
 		
 		int addStatus = userService.add(input.getData());
 		if(addStatus == 1) {

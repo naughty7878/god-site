@@ -34,7 +34,7 @@
 <body>
 	<nav class="breadcrumb">
 		<i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span>
-		角色管理 <span class="c-gray en">&gt;</span> 角色列表 <a
+		管理员管理 <span class="c-gray en">&gt;</span> 角色列表 <a
 			class="btn btn-success btn-refresh btn-refresh radius r"
 			style="line-height: 1.6em; margin-top: 3px"
 			onclick="javascript:location.replace(location.href);"
@@ -58,7 +58,7 @@
 		<div class="cl pd-5 bg-1 bk-gray mt-20">
 			<span class="l">
 				<!-- <a href="javascript:;" onclick="datadel()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i>批量删除</a> --> 
-				<a href="javascript:;" onclick="admin_add('添加管理员','${pageContext.request.contextPath }/role/toAdd','800','500')"
+				<a href="javascript:;" onclick="role_add('添加角色','${pageContext.request.contextPath }/role/toAdd','800','500')"
 				class="btn btn-primary radius"><i class="Hui-iconfont">&#xe600;</i>
 					添加角色</a></span> <span class="r">
 			</span>
@@ -73,7 +73,7 @@
 					<th width="40">ID</th>
 					<th width="150">名称</th>
 					<th width="200">描述</th>
-					<th width="130">加入时间</th>
+					<th width="150">创建时间</th>
 					<th width="100">是否已启用</th>
 					<th width="100">操作</th>
 				</tr>

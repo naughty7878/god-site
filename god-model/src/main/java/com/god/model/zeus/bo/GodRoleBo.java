@@ -1,4 +1,4 @@
-package com.god.model.base.bo;
+package com.god.model.zeus.bo;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -71,9 +71,5 @@ public class GodRoleBo extends PageRequest implements Serializable{
 	public void setEndDate(String endDate) {
 		this.endDate = endDate;
 	}
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
-		
 }
 

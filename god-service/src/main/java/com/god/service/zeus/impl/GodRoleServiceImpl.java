@@ -13,22 +13,23 @@ import com.github.pagehelper.PageHelper;
 import com.god.common.bean.PageResult;
 import com.god.common.util.DateUtils;
 import com.god.dao.zeus.GodRoleDao;
-import com.god.model.base.bo.GodRoleBo;
+import com.god.model.zeus.bo.GodRoleBo;
 import com.god.model.zeus.entity.GodRole;
 import com.god.model.zeus.query.GodRoleExample;
 import com.god.model.zeus.query.GodRoleExample.Criteria;
+import com.god.service.constant.GodRoleStatusEnum;
 import com.god.service.zeus.GodRoleService;
 
 @Service
 public class GodRoleServiceImpl implements GodRoleService {
 	
 	@Autowired
-	private GodRoleDao godRoleDao;
+	private GodRoleDao roleDao;
 
 	
 	@Override
 	public GodRole getGodRoleById(Long roleId) {
-		return godRoleDao.selectByPrimaryKey(roleId);
+		return roleDao.selectByPrimaryKey(roleId);
 	}
 	
 
@@ -47,7 +48,7 @@ public class GodRoleServiceImpl implements GodRoleService {
 		GodRoleExample userExample = new GodRoleExample();
 		userExample.createCriteria().andNameEqualTo(name);
 		userExample.setEnd(1);
-		List<GodRole> roleList = godRoleDao.selectByExample(userExample);
+		List<GodRole> roleList = roleDao.selectByExample(userExample);
 		if(roleList.size() > 0) {
 			return 0;
 		}
@@ -65,7 +66,7 @@ public class GodRoleServiceImpl implements GodRoleService {
 		Date currentTime = new Date();
 		role.setCreateTime(currentTime);
 		role.setUpdateTime(currentTime);
-		int insertStatus = godRoleDao.insertSelective(role);
+		int insertStatus = roleDao.insertSelective(role);
 		return insertStatus;
 		
 	}
@@ -83,8 +84,8 @@ public class GodRoleServiceImpl implements GodRoleService {
 		Date begin = DateUtils.stringToDate(beginDate, DateUtils.DATE_FORMAT);
 		Date end = DateUtils.stringToDate(endDate, DateUtils.DATE_FORMAT);
 		
-		GodRoleExample userExample = new GodRoleExample();
-		Criteria criteria = userExample.createCriteria();
+		GodRoleExample roleExample = new GodRoleExample();
+		Criteria criteria = roleExample.createCriteria();
 		if(begin != null && end != null) {
 			criteria.andCreateTimeBetween(begin, end);
 		}
@@ -97,9 +98,9 @@ public class GodRoleServiceImpl implements GodRoleService {
 		
 		//获取第1页，10条内容，默认查询总数count
 		Page<Object> page = PageHelper.startPage(godRoleBo.getPageNum(), godRoleBo.getPageSize());
-		List<GodRole> userList = godRoleDao.selectByExample(userExample);
+		List<GodRole> roleList = roleDao.selectByExample(roleExample);
 		
-		PageResult<GodRole> pageResult = new PageResult<GodRole>(userList, page.getTotal(), page.getPageNum(), page.getPageSize());
+		PageResult<GodRole> pageResult = new PageResult<GodRole>(roleList, page.getTotal(), page.getPageNum(), page.getPageSize());
 		
 		return pageResult;
 	}
@@ -112,6 +113,7 @@ public class GodRoleServiceImpl implements GodRoleService {
 		
 		GodRole role = new GodRole();
 		role.setId(godRoleBo.getId());
+		role.setDescription(description);
 		if(!StringUtils.isEmpty(description)) {
 			role.setDescription(description);
 		}
@@ -120,6 +122,15 @@ public class GodRoleServiceImpl implements GodRoleService {
 		}
 		role.setUpdateTime(new Date());
 		
-		return godRoleDao.updateByPrimaryKeySelective(role);
+		return roleDao.updateByPrimaryKeySelective(role);
+	}
+
+
+	@Override
+	public List<GodRole> availableList() {
+		GodRoleExample roleExample = new GodRoleExample();
+		Criteria criteria = roleExample.createCriteria();
+		criteria.andStatusEqualTo(GodRoleStatusEnum.ROLE_AVAILABLE.getCode());
+		return roleDao.selectByExample(roleExample);
 	}
 }

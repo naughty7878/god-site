@@ -1,12 +1,15 @@
-package com.god.model.base.bo;
+package com.god.model.zeus.bo;
 
 import com.god.common.bean.PageRequest;
 
 public class GodUserBo extends PageRequest{
 	
+	private static final long serialVersionUID = 1L;
+	
 	private Long id;
 	private String name;
 	private String password;
+	private Long roleId;
     private Integer status;
 	private String beginDate;
 	private String endDate;
@@ -47,6 +50,12 @@ public class GodUserBo extends PageRequest{
 	}
 	public void setPassword(String password) {
 		this.password = password;
+	}
+	public Long getRoleId() {
+		return roleId;
+	}
+	public void setRoleId(Long roleId) {
+		this.roleId = roleId;
 	}
     
     

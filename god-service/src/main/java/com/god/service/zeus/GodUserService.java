@@ -3,8 +3,9 @@ package com.god.service.zeus;
 import java.util.List;
 
 import com.god.common.bean.PageResult;
-import com.god.model.base.bo.GodUserBo;
+import com.god.model.zeus.bo.GodUserBo;
 import com.god.model.zeus.entity.GodUser;
+import com.god.model.zeus.vo.GodUserVo;
 
 
 
@@ -23,7 +24,7 @@ public interface GodUserService {
 	 * @param data
 	 * @return
 	 */
-	PageResult<GodUser> pageList(GodUserBo godUserBo);
+	PageResult<GodUserVo> pageList(GodUserBo godUserBo);
 
 	/**
 	 * 更新用户

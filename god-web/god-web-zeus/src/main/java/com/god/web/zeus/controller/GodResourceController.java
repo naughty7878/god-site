@@ -9,53 +9,50 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.god.common.bean.BaseInput;
 import com.god.common.bean.BaseOutput;
 import com.god.common.bean.PageResult;
-import com.god.model.zeus.bo.GodRoleBo;
-import com.god.model.zeus.entity.GodRole;
-import com.god.model.zeus.entity.GodUser;
-import com.god.service.zeus.GodRoleService;
-import com.god.service.zeus.GodUserService;
+import com.god.model.zeus.bo.GodResourceBo;
+import com.god.model.zeus.entity.GodResource;
+import com.god.service.zeus.GodResourceService;
 
 @Controller
-@RequestMapping(value = "/role", method=RequestMethod.POST)
-public class GodRoleController {
+@RequestMapping(value = "/resource", method=RequestMethod.POST)
+public class GodResourceController {
 	
 	@Autowired
-	private GodRoleService rodRoleService;
+	private GodResourceService rodResourceService;
 	
 	@RequestMapping(value="/toList", method=RequestMethod.GET)
 	public ModelAndView toList(){
 		
-		ModelAndView modelAndView = new ModelAndView("role/role-list");
+		ModelAndView modelAndView = new ModelAndView("resource/resource-list");
 		return modelAndView;
 	}
 	
 	@RequestMapping(value="/toAdd", method=RequestMethod.GET)
 	public ModelAndView toAdd(){
 		
-		ModelAndView modelAndView = new ModelAndView("role/role-add");
+		ModelAndView modelAndView = new ModelAndView("resource/resource-add");
 		return modelAndView;
 	}
 	
-	@RequestMapping(value="/toUpdate/{roleId}", method=RequestMethod.GET)
-	public ModelAndView toUpdate(@PathVariable("roleId") Long roleId){
+	@RequestMapping(value="/toUpdate/{resourceId}", method=RequestMethod.GET)
+	public ModelAndView toUpdate(@PathVariable("resourceId") Long resourceId){
 		
-		ModelAndView modelAndView = new ModelAndView("role/role-update");
-		modelAndView.addObject("godRole", rodRoleService.getGodRoleById(roleId));
+		ModelAndView modelAndView = new ModelAndView("resource/resource-update");
+		modelAndView.addObject("godResource", rodResourceService.getGodResourceById(resourceId));
 		return modelAndView;
 	}
 	
 	
 	@RequestMapping(value="/add", method=RequestMethod.POST)
 	@ResponseBody
-	public BaseOutput add(@RequestBody BaseInput<GodRoleBo> input){
+	public BaseOutput add(@RequestBody BaseInput<GodResourceBo> input){
 		
-		int addStatus = rodRoleService.add(input.getData());
+		int addStatus = rodResourceService.add(input.getData());
 		if(addStatus == 1) {
 			return BaseOutput.OK("新增成功");
 		}
@@ -69,18 +66,18 @@ public class GodRoleController {
 	 */
 	@RequestMapping(value="/pageList", method=RequestMethod.POST)
 	@ResponseBody
-	public BaseOutput<PageResult<GodRole>> pageList(@RequestBody BaseInput<GodRoleBo> input){
+	public BaseOutput<PageResult<GodResource>> pageList(@RequestBody BaseInput<GodResourceBo> input){
 		
-		PageResult<GodRole> pageResult = rodRoleService.pageList(input.getData());
+		PageResult<GodResource> pageResult = rodResourceService.pageList(input.getData());
 		
 		return BaseOutput.OK(pageResult);
 	}
 
 	@RequestMapping(value="/update", method=RequestMethod.POST)
 	@ResponseBody
-	public BaseOutput update(@RequestBody BaseInput<GodRoleBo> input){
+	public BaseOutput update(@RequestBody BaseInput<GodResourceBo> input){
 		
-		int n = rodRoleService.update(input.getData());
+		int n = rodResourceService.update(input.getData());
 		return BaseOutput.OK("更新成功");
 	}
 	
@@ -91,9 +88,9 @@ public class GodRoleController {
 	 */
 	@RequestMapping(value="/availableList", method=RequestMethod.POST)
 	@ResponseBody
-	public BaseOutput<List<GodRole>> availableList(){
+	public BaseOutput<List<GodResource>> availableList(){
 		
-		List<GodRole> list = rodRoleService.availableList();
+		List<GodResource> list = rodResourceService.availableList();
 		
 		return BaseOutput.OK(list);
 	}

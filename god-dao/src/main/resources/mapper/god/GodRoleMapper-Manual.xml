@@ -3,5 +3,25 @@
 
 <!-- 存放手写的sql -->
 <mapper namespace="com.god.dao.zeus.GodRoleDao">
+	<select id="selectByUserId" resultMap="BaseResultMap">
+		SELECT 
+			r.id,
+			r.name,
+			r.description,
+			r.status,
+			r.create_time,
+			r.update_time
+	    FROM 
+	    	(SELECT 
+				role_id
+		    FROM god_user_role
+		       WHERE 
+		        user_id = #{userId,jdbcType=BIGINT}) ur
+		LEFT JOIN 
+			god_role r
+        ON 
+	        ur.role_id = r.id 
+	    LIMIT 1
+	</select>
 	
 </mapper>

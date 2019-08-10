@@ -93,8 +93,8 @@
 							href="javascript:void(0)">管理员列表</a></li>
 						<li><a data-href="${pageContext.request.contextPath }/role/toList" data-title="角色管理"
 							href="javascript:void(0)">角色管理</a></li>
-						<li><a data-href="admin-permission.html" data-title="权限管理"
-							href="javascript:void(0)">权限管理</a></li>
+						<li><a data-href="${pageContext.request.contextPath }/resource/toList" data-title="资源管理"
+							href="javascript:void(0)">资源管理</a></li>
 						
 					</ul>
 				</dd>

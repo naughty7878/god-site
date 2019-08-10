@@ -73,4 +73,9 @@ public interface GodRoleDao {
      */
     int updateByPrimaryKey(GodRole record);
     
+    /**
+     * 根据用户ID，获取角色信息
+     * @return
+     */
+    GodRole selectByUserId(Long userId);
 }

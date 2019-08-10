@@ -1,8 +1,10 @@
 package com.god.service.zeus.impl;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,11 +16,17 @@ import com.god.common.bean.BaseInput;
 import com.god.common.bean.PageResult;
 import com.god.common.util.DateUtils;
 import com.god.common.util.MD5Utils;
+import com.god.dao.zeus.GodRoleDao;
 import com.god.dao.zeus.GodUserDao;
-import com.god.model.base.bo.GodUserBo;
+import com.god.dao.zeus.GodUserRoleDao;
+import com.god.model.zeus.bo.GodUserBo;
+import com.god.model.zeus.entity.GodRole;
 import com.god.model.zeus.entity.GodUser;
+import com.god.model.zeus.entity.GodUserRole;
 import com.god.model.zeus.query.GodUserExample;
 import com.god.model.zeus.query.GodUserExample.Criteria;
+import com.god.model.zeus.query.GodUserRoleExample;
+import com.god.model.zeus.vo.GodUserVo;
 import com.god.service.zeus.GodUserService;
 import com.god.service.zeus.constant.ZeusConstants;
 
@@ -29,6 +37,12 @@ public class GodUserServiceImpl implements GodUserService{
 	@Autowired
 	private GodUserDao userDao;
 	
+	@Autowired
+	private GodUserRoleDao userRoleDao;
+	
+	@Autowired
+	private GodRoleDao roleDao;
+	
 	@Override
 	public List<GodUser> searchUserList() {
 		return userDao.selectByExample(null);
@@ -36,7 +50,7 @@ public class GodUserServiceImpl implements GodUserService{
 	
 	
 	@Override
-	public PageResult<GodUser> pageList(GodUserBo godUserBo) {
+	public PageResult<GodUserVo> pageList(GodUserBo godUserBo) {
 		
 		String beginDate = godUserBo.getBeginDate();
 		String endDate = godUserBo.getEndDate();
@@ -61,11 +75,32 @@ public class GodUserServiceImpl implements GodUserService{
 		//获取第1页，10条内容，默认查询总数count
 		Page<Object> page = PageHelper.startPage(godUserBo.getPageNum(), godUserBo.getPageSize());
 		List<GodUser> userList = userDao.selectByExample(userExample);
-		
-		PageResult<GodUser> pageResult = new PageResult<GodUser>(userList, page.getTotal(), page.getPageNum(), page.getPageSize());
+		List<GodUserVo> userVoList = new ArrayList<GodUserVo>();
+		if(userList.size() > 0) {
+			for (GodUser user : userList) {
+				userVoList.add(convertToGodUserVo(user));
+			}
+		}
+		PageResult<GodUserVo> pageResult = new PageResult<GodUserVo>(userVoList, page.getTotal(), page.getPageNum(), page.getPageSize());
 		
 		return pageResult;
 	}
+	
+	private GodUserVo convertToGodUserVo(GodUser godUser) {
+		if(godUser == null) return null;
+		GodUserVo userVo = new GodUserVo();
+		BeanUtils.copyProperties(godUser, userVo);
+		
+		Long userId = godUser.getId();
+		GodRole role = roleDao.selectByUserId(userId);
+		if(role != null) {
+			userVo.setRoleId(role.getId());
+			userVo.setRoleName(role.getName());
+		}
+		return userVo;
+	}
+	
+	
 	
 	@Override
 	@Transactional
@@ -73,9 +108,13 @@ public class GodUserServiceImpl implements GodUserService{
 		String name = godUserBo.getName();
 		String password = godUserBo.getPassword();
 		Integer status = godUserBo.getStatus();
+		Long roleId = godUserBo.getRoleId();
+		Long id = godUserBo.getId();
+		
+		Date currentDate = new Date();
 		
 		GodUser user = new GodUser();
-		user.setId(godUserBo.getId());
+		user.setId(id);
 		if(!StringUtils.isEmpty(name)) {
 			user.setName(name);
 		}
@@ -88,6 +127,22 @@ public class GodUserServiceImpl implements GodUserService{
 		}
 		user.setUpdateTime(new Date());
 		
+		if(roleId != null && id != null) {
+			// 更新用户角色关系
+			// 删除旧关系
+			GodUserRoleExample userRoleExample = new GodUserRoleExample();
+			userRoleExample.createCriteria().andUserIdEqualTo(id);
+			userRoleDao.deleteByExample(userRoleExample);
+			
+			// 新增关系
+			GodUserRole userRole = new GodUserRole();
+			userRole.setUserId(id);
+			userRole.setRoleId(roleId);
+			userRole.setCreateTime(currentDate);
+			userRole.setUpdateTime(currentDate);
+			userRoleDao.insert(userRole);
+			
+		}
 		return userDao.updateByPrimaryKeySelective(user);
 	}
 

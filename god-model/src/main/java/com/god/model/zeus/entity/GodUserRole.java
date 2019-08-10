@@ -3,56 +3,78 @@ package com.god.model.zeus.entity;
 import java.io.Serializable;
 import java.util.Date;
 
-public class GodUserRole implements Serializable {
-    private Integer id;
 
-    private Integer userId;
+/**
+ * 用户角色表 实体类
+ * 
+ * @author God
+ * @date 2019-08-10 23:26:32
+ */
+public class GodUserRole implements Serializable{
+	
+	private static final long serialVersionUID = 1L;	
+	
+	/**
+     * ID 
+     */
+	private Long id;
+	/**
+     * 用户ID 
+     */
+	private Long userId;
+	/**
+     * 角色ID 
+     */
+	private Long roleId;
+	/**
+     * 创建时间 
+     */
+	private Date createTime;
+	/**
+     * 更新时间 
+     */
+	private Date updateTime;
+	
+		
+	public void setId(Long value) {
+		this.id = value;
+	}
+	
+	public Long getId() {
+		return this.id;
+	}
+		
+	public void setUserId(Long value) {
+		this.userId = value;
+	}
+	
+	public Long getUserId() {
+		return this.userId;
+	}
+		
+	public void setRoleId(Long value) {
+		this.roleId = value;
+	}
+	
+	public Long getRoleId() {
+		return this.roleId;
+	}
+		
+	public void setCreateTime(Date value) {
+		this.createTime = value;
+	}
+	
+	public Date getCreateTime() {
+		return this.createTime;
+	}
+		
+	public void setUpdateTime(Date value) {
+		this.updateTime = value;
+	}
+	
+	public Date getUpdateTime() {
+		return this.updateTime;
+	}
 
-    private Integer roleId;
-
-    private Date createTime;
-
-    private Date updateTime;
-
-    private static final long serialVersionUID = 1L;
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public Integer getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Integer userId) {
-        this.userId = userId;
-    }
-
-    public Integer getRoleId() {
-        return roleId;
-    }
-
-    public void setRoleId(Integer roleId) {
-        this.roleId = roleId;
-    }
-
-    public Date getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
-
-    public Date getUpdateTime() {
-        return updateTime;
-    }
-
-    public void setUpdateTime(Date updateTime) {
-        this.updateTime = updateTime;
-    }
 }
+
