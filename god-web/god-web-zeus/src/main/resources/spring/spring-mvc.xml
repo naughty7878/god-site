@@ -48,6 +48,7 @@
 			<mvc:exclude-mapping path="/static/**" />
 			<mvc:exclude-mapping path="/lib/**" />
 			<mvc:exclude-mapping path="/helloWorld/**" />
+			<mvc:exclude-mapping path="/area/**" />
 			<bean class="com.god.web.zeus.interceptor.LoginInterceptor" />
 		</mvc:interceptor>
 	</mvc:interceptors>

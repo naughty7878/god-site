@@ -1,38 +1,74 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:aop="http://www.springframework.org/schema/aop"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:tx="http://www.springframework.org/schema/tx"
 	xmlns:mybatis="http://mybatis.org/schema/mybatis-spring"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans 
 		http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
 		http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring.xsd">
 
-	
-	
-	<!-- 数据源：Spring用来控制业务逻辑。数据源、事务控制、aop -->
-	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
-		<property name="jdbcUrl" value="${jdbc.url}"></property>
-		<property name="driverClass" value="${jdbc.driver}"></property>
-		<property name="user" value="${jdbc.username}"></property>
-		<property name="password" value="${jdbc.password}"></property>
+	<bean id="dataSourceGod" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+		<property name="jdbcUrl" value="${jdbc.god.url}"></property>
+		<property name="driverClass" value="${jdbc.god.driver}"></property>
+		<property name="user" value="${jdbc.god.username}"></property>
+		<property name="password" value="${jdbc.god.password}"></property>
 		<!-- 初始化数据库连接池时连接的数量 -->
-		<property name="initialPoolSize" value="${jdbc.c3p0.initialPoolSize}"></property>
+		<property name="initialPoolSize" value="${jdbc.god.c3p0.initialPoolSize}"></property>
 		<!-- 数据库连接池中的最大的数据库连接数 -->
-		<property name="maxPoolSize" value="${jdbc.c3p0.maxPoolSize}"></property>
+		<property name="maxPoolSize" value="${jdbc.god.c3p0.maxPoolSize}"></property>
 		<!-- 数据库连接池中的最小的数据库连接数 -->
-		<property name="minPoolSize" value="${jdbc.c3p0.minPoolSize}"></property>
+		<property name="minPoolSize" value="${jdbc.god.c3p0.minPoolSize}"></property>
 		<!--最大空闲时间,60秒内未使用则连接被丢弃。若为0则永不丢弃。Default: 0 -->
-		<property name="maxIdleTime" value="${jdbc.c3p0.maxIdleTime}"></property>
+		<property name="maxIdleTime" value="${jdbc.god.c3p0.maxIdleTime}"></property>
 		<!--如果设为true那么在取得连接的同时将校验连接的有效性。Default: false -->
-		<property name="testConnectionOnCheckin" value="${jdbc.c3p0.testConnectionOnCheckin}" />
+		<property name="testConnectionOnCheckin" value="${jdbc.god.c3p0.testConnectionOnCheckin}" />
 		<!-- true表示在每次从pool内checkout连接的时候测试其有效性. 默认为false -->
-		<property name="testConnectionOnCheckout" value="${jdbc.c3p0.testConnectionOnCheckout}" />
+		<property name="testConnectionOnCheckout" value="${jdbc.god.c3p0.testConnectionOnCheckout}" />
 		<!-- C3P0会有一个Task检测pool内的连接是否正常，此参数就是Task运行的频率。默认值为0，表示不进行检测。 -->
-		<property name="idleConnectionTestPeriod" value="${jdbc.c3p0.idleConnectionTestPeriod}" />
+		<property name="idleConnectionTestPeriod" value="${jdbc.god.c3p0.idleConnectionTestPeriod}" />
 	</bean>
+    
+    <bean id="dataSourceBase" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+		<property name="jdbcUrl" value="${jdbc.base.url}"></property>
+		<property name="driverClass" value="${jdbc.base.driver}"></property>
+		<property name="user" value="${jdbc.base.username}"></property>
+		<property name="password" value="${jdbc.base.password}"></property>
+		<!-- 初始化数据库连接池时连接的数量 -->
+		<property name="initialPoolSize" value="${jdbc.base.c3p0.initialPoolSize}"></property>
+		<!-- 数据库连接池中的最大的数据库连接数 -->
+		<property name="maxPoolSize" value="${jdbc.base.c3p0.maxPoolSize}"></property>
+		<!-- 数据库连接池中的最小的数据库连接数 -->
+		<property name="minPoolSize" value="${jdbc.base.c3p0.minPoolSize}"></property>
+		<!--最大空闲时间,60秒内未使用则连接被丢弃。若为0则永不丢弃。Default: 0 -->
+		<property name="maxIdleTime" value="${jdbc.base.c3p0.maxIdleTime}"></property>
+		<!--如果设为true那么在取得连接的同时将校验连接的有效性。Default: false -->
+		<property name="testConnectionOnCheckin" value="${jdbc.base.c3p0.testConnectionOnCheckin}" />
+		<!-- true表示在每次从pool内checkout连接的时候测试其有效性. 默认为false -->
+		<property name="testConnectionOnCheckout" value="${jdbc.base.c3p0.testConnectionOnCheckout}" />
+		<!-- C3P0会有一个Task检测pool内的连接是否正常，此参数就是Task运行的频率。默认值为0，表示不进行检测。 -->
+		<property name="idleConnectionTestPeriod" value="${jdbc.base.c3p0.idleConnectionTestPeriod}" />
+	</bean>
+    
+ 
+    <!-- 数据源：Spring用来控制业务逻辑。数据源、事务控制、aop -->
+    <bean id="dataSource" class="com.god.dao.datasource.DynamicDataSource">
+        <property name="targetDataSources">
+            <map key-type="java.lang.String">
+                <entry key="dataSourceGod" value-ref="dataSourceGod"></entry>
+                <entry key="dataSourceBase" value-ref="dataSourceBase"></entry>
+            </map>
+        </property>
+        <!-- 默认目标数据源为你主库数据源 -->
+        <property name="defaultTargetDataSource" ref="dataSourceGod"/>
+    </bean>
+	
+	
+	
 	
 	<!-- spring事务管理 -->
 	<bean id="dataSourceTransactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
@@ -40,7 +76,7 @@
 	</bean>
 
 	<!-- 开启基于注解的事务 -->
-	<tx:annotation-driven transaction-manager="dataSourceTransactionManager"/>
+	<tx:annotation-driven transaction-manager="dataSourceTransactionManager" order="2"/>
 	
 	<!-- 
 	整合mybatis 
@@ -54,7 +90,7 @@
 		<!-- configLocation指定全局配置文件的位置 -->
 		<property name="configLocation" value="classpath:zeus/mybatis-config.xml"></property>
 		<!--mapperLocations: 指定mapper文件的位置-->
-		<property name="mapperLocations" value="classpath:mapper/*.xml"></property>
+		<property name="mapperLocations" value="classpath:mapper/*/*.xml"></property>
 	</bean>
 	
 	<!--配置一个可以进行批量执行的sqlSession
@@ -68,4 +104,15 @@
 	-->
 	<mybatis:scan base-package="com.god.dao"/>
 	 
+	<!-- 配置切面的Bean -->
+    <bean id="dataSourceAspect" class="com.god.web.zeus.aspect.DataSourceAspect"/>
+   
+	 
+	<!-- 配置AOP -->
+    <aop:config>
+        <!-- 配置切点表达式  -->
+        <aop:pointcut id="servicePointcut" expression="execution(* com..service.*.*.*Impl.*(..))"/>
+        <!-- 关键配置，切换数据源一定要比持久层代码更先执行（事务也算持久层代码） <aop:advisor advice-ref="txAdvice" pointcut-ref="service" order="2"/> -->
+        <aop:advisor advice-ref="dataSourceAspect" pointcut-ref="servicePointcut" order="1"/>
+    </aop:config>
 </beans>
