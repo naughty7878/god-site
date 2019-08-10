@@ -36,7 +36,7 @@ public class GodUserController {
 	}
 	
 	@RequestMapping(value="/toUpdate/{userId}", method=RequestMethod.GET)
-	public ModelAndView toUpdate(@PathVariable("userId") Integer userId){
+	public ModelAndView toUpdate(@PathVariable("userId") Long userId){
 		
 		ModelAndView modelAndView = new ModelAndView("admin/admin-update");
 		modelAndView.addObject("godUser", userService.getGodUserById(userId));

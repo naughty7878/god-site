@@ -18,6 +18,7 @@ import com.god.dao.zeus.GodUserDao;
 import com.god.model.base.bo.GodUserBo;
 import com.god.model.zeus.entity.GodUser;
 import com.god.model.zeus.query.GodUserExample;
+import com.god.model.zeus.query.GodUserExample.Criteria;
 import com.god.service.zeus.GodUserService;
 import com.god.service.zeus.constant.ZeusConstants;
 
@@ -46,14 +47,15 @@ public class GodUserServiceImpl implements GodUserService{
 		Date end = DateUtils.stringToDate(endDate, DateUtils.DATE_FORMAT);
 		
 		GodUserExample userExample = new GodUserExample();
+		Criteria criteria = userExample.createCriteria();
 		if(begin != null && end != null) {
-			userExample.createCriteria().andCreateTimeBetween(begin, end);
+			criteria.andCreateTimeBetween(begin, end);
 		}
 		if(!StringUtils.isEmpty(name)) {
-			userExample.createCriteria().andNameLike("%" + name + "%");
+			criteria.andNameLike("%" + name + "%");
 		}
 		if(status != null) {
-			userExample.createCriteria().andStatusEqualTo(status);
+			criteria.andStatusEqualTo(status);
 		}
 		
 		//获取第1页，10条内容，默认查询总数count
@@ -141,7 +143,7 @@ public class GodUserServiceImpl implements GodUserService{
 	 * 根据userId获取用户
 	 * @param userId
 	 */
-	public GodUser getGodUserById(Integer userId) {
+	public GodUser getGodUserById(Long userId) {
 		if(userId == null) {
 			return null;
 		}

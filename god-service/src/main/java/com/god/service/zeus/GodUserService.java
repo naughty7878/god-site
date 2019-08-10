@@ -36,7 +36,7 @@ public interface GodUserService {
 	 * @param data
 	 */
 	int add(GodUserBo godUserBo);
-
-	GodUser getGodUserById(Integer userId);
+	
+	GodUser getGodUserById(Long userId);
 
 }

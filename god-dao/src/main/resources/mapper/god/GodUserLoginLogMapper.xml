@@ -4,7 +4,7 @@
 <mapper namespace="com.god.dao.zeus.GodUserLoginLogDao">
 
 	<resultMap id="BaseResultMap" type="com.god.model.zeus.entity.GodUserLoginLog">
-        <id property="id" jdbcType="INTEGER" column="id"/>
+        <id property="id" jdbcType="BIGINT" column="id"/>
         <result property="userId" jdbcType="INTEGER" column="user_id"/>
         <result property="loginIp" jdbcType="VARCHAR" column="login_ip"/>
         <result property="times" jdbcType="INTEGER" column="times"/>
@@ -25,7 +25,7 @@
 	
 	<!-- useGeneratedKeys="true" keyProperty="xxx" for sqlserver and mysql -->
 	<insert id="insert" parameterType="com.god.model.zeus.entity.GodUserLoginLog" >
-	    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+	    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
 			SELECT LAST_INSERT_ID()
 	   	</selectKey>
         INSERT INTO god_user_login_log (
@@ -46,7 +46,7 @@
 	</insert>
 	
 	<insert id="insertSelective" parameterType="com.god.model.zeus.entity.GodUserLoginLog" >
-	   	<selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+	   	<selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
 			SELECT LAST_INSERT_ID()
 		</selectKey>
 	   	INSERT INTO god_user_login_log 
@@ -101,7 +101,7 @@
 	        create_time = #{createTime,jdbcType=TIMESTAMP},
 	        update_time = #{updateTime,jdbcType=TIMESTAMP}
         WHERE 
-	        id = #{id,jdbcType=INTEGER}
+	        id = #{id,jdbcType=BIGINT}
 	</update>
 	
 	<update id="updateByPrimaryKeySelective" >
@@ -125,19 +125,19 @@
 	        	update_time = #{updateTime,jdbcType=TIMESTAMP}
 	        </if>
         WHERE 
-	        id = #{id,jdbcType=INTEGER}
+	        id = #{id,jdbcType=BIGINT}
 	</update>
 
     <delete id="deleteByPrimaryKey">
         DELETE FROM god_user_login_log WHERE
-        id = #{id,jdbcType=INTEGER}
+        id = #{id,jdbcType=BIGINT}
     </delete>
     
     <select id="selectByPrimaryKey" resultMap="BaseResultMap">
 		SELECT <include refid="Base_Column_List" />
 	    FROM god_user_login_log
         WHERE 
-	        id = #{id,jdbcType=INTEGER}
+	        id = #{id,jdbcType=BIGINT}
 	</select>
 	
 	<sql id="Example_Where_Clause">
@@ -199,7 +199,7 @@
 	
 	<update id="updateByExample" parameterType="map">
 		UPDATE god_user_login_log SET
-	        id = #{id,jdbcType=INTEGER},
+	        id = #{id,jdbcType=BIGINT},
 	        user_id = #{userId,jdbcType=INTEGER},
 	        login_ip = #{loginIp,jdbcType=VARCHAR},
 	        times = #{times,jdbcType=INTEGER},
@@ -214,7 +214,7 @@
 	<update id="updateByExampleSelective" parameterType="map">
 		UPDATE god_user_login_log SET
 	        <if test="id != null">
-	        	id = #{id,jdbcType=INTEGER},
+	        	id = #{id,jdbcType=BIGINT},
 	        </if>
 	        <if test="userId != null">
 	        	user_id = #{userId,jdbcType=INTEGER},

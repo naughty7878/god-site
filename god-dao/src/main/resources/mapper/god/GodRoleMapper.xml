@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
 
-<mapper namespace="com.god.dao.zeus.GodUserDao">
+<mapper namespace="com.god.dao.zeus.GodRoleDao">
 
-	<resultMap id="BaseResultMap" type="com.god.model.zeus.entity.GodUser">
+	<resultMap id="BaseResultMap" type="com.god.model.zeus.entity.GodRole">
         <id property="id" jdbcType="BIGINT" column="id"/>
         <result property="name" jdbcType="VARCHAR" column="name"/>
-        <result property="password" jdbcType="VARCHAR" column="password"/>
-        <result property="nickname" jdbcType="VARCHAR" column="nickname"/>
+        <result property="description" jdbcType="VARCHAR" column="description"/>
         <result property="status" jdbcType="INTEGER" column="status"/>
         <result property="createTime" jdbcType="TIMESTAMP" column="create_time"/>
         <result property="updateTime" jdbcType="TIMESTAMP" column="update_time"/>
@@ -16,49 +15,43 @@
 	<sql id="Base_Column_List">
 		id,
 		name,
-		password,
-		nickname,
+		description,
 		status,
 		create_time,
 		update_time
 	</sql>
 	
 	<!-- useGeneratedKeys="true" keyProperty="xxx" for sqlserver and mysql -->
-	<insert id="insert" parameterType="com.god.model.zeus.entity.GodUser" >
+	<insert id="insert" parameterType="com.god.model.zeus.entity.GodRole" >
 	    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
 			SELECT LAST_INSERT_ID()
 	   	</selectKey>
-        INSERT INTO god_user (
+        INSERT INTO god_role (
         	name,
-        	password,
-        	nickname,
+        	description,
         	status,
         	create_time,
         	update_time
         ) VALUES (
         	#{name,jdbcType=VARCHAR},
-        	#{password,jdbcType=VARCHAR},
-        	#{nickname,jdbcType=VARCHAR},
+        	#{description,jdbcType=VARCHAR},
         	#{status,jdbcType=INTEGER},
         	#{createTime,jdbcType=TIMESTAMP},
         	#{updateTime,jdbcType=TIMESTAMP}
         )
 	</insert>
 	
-	<insert id="insertSelective" parameterType="com.god.model.zeus.entity.GodUser" >
+	<insert id="insertSelective" parameterType="com.god.model.zeus.entity.GodRole" >
 	   	<selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
 			SELECT LAST_INSERT_ID()
 		</selectKey>
-	   	INSERT INTO god_user 
+	   	INSERT INTO god_role 
 	   	<trim prefix="(" suffix=")" suffixOverrides=",">
 			<if test="name != null">
 		    	name,
 			</if>
-			<if test="password != null">
-		    	password,
-			</if>
-			<if test="nickname != null">
-		    	nickname,
+			<if test="description != null">
+		    	description,
 			</if>
 			<if test="status != null">
 		    	status,
@@ -74,11 +67,8 @@
        		<if test="name != null">
 	       		#{name,jdbcType=VARCHAR},
 	       	</if>
-       		<if test="password != null">
-	       		#{password,jdbcType=VARCHAR},
-	       	</if>
-       		<if test="nickname != null">
-	       		#{nickname,jdbcType=VARCHAR},
+       		<if test="description != null">
+	       		#{description,jdbcType=VARCHAR},
 	       	</if>
        		<if test="status != null">
 	       		#{status,jdbcType=INTEGER},
@@ -93,10 +83,9 @@
 	</insert>
     
 	<update id="updateByPrimaryKey" >
-        UPDATE god_user SET
+        UPDATE god_role SET
 	        name = #{name,jdbcType=VARCHAR},
-	        password = #{password,jdbcType=VARCHAR},
-	        nickname = #{nickname,jdbcType=VARCHAR},
+	        description = #{description,jdbcType=VARCHAR},
 	        status = #{status,jdbcType=INTEGER},
 	        create_time = #{createTime,jdbcType=TIMESTAMP},
 	        update_time = #{updateTime,jdbcType=TIMESTAMP}
@@ -105,15 +94,12 @@
 	</update>
 	
 	<update id="updateByPrimaryKeySelective" >
-        UPDATE god_user SET
+        UPDATE god_role SET
 	        <if test="name != null">
 	        	name = #{name,jdbcType=VARCHAR},
 	        </if>
-	        <if test="password != null">
-	        	password = #{password,jdbcType=VARCHAR},
-	        </if>
-	        <if test="nickname != null">
-	        	nickname = #{nickname,jdbcType=VARCHAR},
+	        <if test="description != null">
+	        	description = #{description,jdbcType=VARCHAR},
 	        </if>
 	        <if test="status != null">
 	        	status = #{status,jdbcType=INTEGER},
@@ -129,13 +115,13 @@
 	</update>
 
     <delete id="deleteByPrimaryKey">
-        DELETE FROM god_user WHERE
+        DELETE FROM god_role WHERE
         id = #{id,jdbcType=BIGINT}
     </delete>
     
     <select id="selectByPrimaryKey" resultMap="BaseResultMap">
 		SELECT <include refid="Base_Column_List" />
-	    FROM god_user
+	    FROM god_role
         WHERE 
 	        id = #{id,jdbcType=BIGINT}
 	</select>
@@ -198,11 +184,10 @@
 	</sql>
 	
 	<update id="updateByExample" parameterType="map">
-		UPDATE god_user SET
+		UPDATE god_role SET
 	        id = #{id,jdbcType=BIGINT},
 	        name = #{name,jdbcType=VARCHAR},
-	        password = #{password,jdbcType=VARCHAR},
-	        nickname = #{nickname,jdbcType=VARCHAR},
+	        description = #{description,jdbcType=VARCHAR},
 	        status = #{status,jdbcType=INTEGER},
 	        create_time = #{createTime,jdbcType=TIMESTAMP},
 	        update_time = #{updateTime,jdbcType=TIMESTAMP}
@@ -212,18 +197,15 @@
 	</update>
 	
 	<update id="updateByExampleSelective" parameterType="map">
-		UPDATE god_user SET
+		UPDATE god_role SET
 	        <if test="id != null">
 	        	id = #{id,jdbcType=BIGINT},
 	        </if>
 	        <if test="name != null">
 	        	name = #{name,jdbcType=VARCHAR},
 	        </if>
-	        <if test="password != null">
-	        	password = #{password,jdbcType=VARCHAR},
-	        </if>
-	        <if test="nickname != null">
-	        	nickname = #{nickname,jdbcType=VARCHAR},
+	        <if test="description != null">
+	        	description = #{description,jdbcType=VARCHAR},
 	        </if>
 	        <if test="status != null">
 	        	status = #{status,jdbcType=INTEGER},
@@ -239,27 +221,27 @@
 		</if>
 	</update>
 	
-	<delete id="deleteByExample" parameterType="com.god.model.zeus.query.GodUserExample">
+	<delete id="deleteByExample" parameterType="com.god.model.zeus.query.GodRoleExample">
 		DELETE FROM god_user
 		<if test="_parameter != null">
 			<include refid="Example_Where_Clause" />
 		</if>
 	</delete>
 	
-	<select id="countByExample" parameterType="com.god.model.zeus.query.GodUserExample" resultType="java.lang.Long">
-		SELECT count(*) FROM god_user
+	<select id="countByExample" parameterType="com.god.model.zeus.query.GodRoleExample" resultType="java.lang.Long">
+		SELECT count(*) FROM god_role
 		<if test="_parameter != null">
 			<include refid="Example_Where_Clause" />
 		</if>
 	</select>
 	
-	<select id="selectByExample" parameterType="com.god.model.zeus.query.GodUserExample" resultMap="BaseResultMap">
+	<select id="selectByExample" parameterType="com.god.model.zeus.query.GodRoleExample" resultMap="BaseResultMap">
 		SELECT
 		<if test="distinct">
 			distinct
 		</if>
 		<include refid="Base_Column_List" />
-		FROM god_user
+		FROM god_role
 		<if test="_parameter != null">
 			<include refid="Example_Where_Clause" />
 		</if>

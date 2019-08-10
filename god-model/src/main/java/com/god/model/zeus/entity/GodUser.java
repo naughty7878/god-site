@@ -3,21 +3,23 @@ package com.god.model.zeus.entity;
 import java.io.Serializable;
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 
 /**
  * 用户表 实体类
  * 
  * @author God
- * @date 2019-08-02 01:21:15
+ * @date 2019-08-10 18:51:22
  */
-public class GodUser implements java.io.Serializable{
+public class GodUser implements Serializable{
 	
 	private static final long serialVersionUID = 1L;	
 	
 	/**
      * ID 
      */
-	private Integer id;
+	private Long id;
 	/**
      * 名称 
      */
@@ -37,18 +39,20 @@ public class GodUser implements java.io.Serializable{
 	/**
      * 创建时间 
      */
+	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
 	private Date createTime;
 	/**
      * 修改时间 
      */
+	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
 	private Date updateTime;
 	
 		
-	public void setId(Integer value) {
+	public void setId(Long value) {
 		this.id = value;
 	}
 	
-	public Integer getId() {
+	public Long getId() {
 		return this.id;
 	}
 		

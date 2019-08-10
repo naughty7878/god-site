@@ -8,20 +8,20 @@ import java.util.Date;
  * 用户登录日志表 实体类
  * 
  * @author God
- * @date 2019-08-02 01:07:43
+ * @date 2019-08-10 18:52:38
  */
-public class GodUserLoginLog implements java.io.Serializable{
+public class GodUserLoginLog implements Serializable{
 	
 	private static final long serialVersionUID = 1L;	
 	
 	/**
      * ID 
      */
-	private Integer id;
+	private Long id;
 	/**
      * 用户id 
      */
-	private Integer userId;
+	private Long userId;
 	/**
      * 登录IP 
      */
@@ -44,19 +44,19 @@ public class GodUserLoginLog implements java.io.Serializable{
 	private Date updateTime;
 	
 		
-	public void setId(Integer value) {
+	public void setId(Long value) {
 		this.id = value;
 	}
 	
-	public Integer getId() {
+	public Long getId() {
 		return this.id;
 	}
 		
-	public void setUserId(Integer value) {
+	public void setUserId(Long value) {
 		this.userId = value;
 	}
 	
-	public Integer getUserId() {
+	public Long getUserId() {
 		return this.userId;
 	}
 		

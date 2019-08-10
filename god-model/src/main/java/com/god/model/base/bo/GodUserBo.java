@@ -4,7 +4,7 @@ import com.god.common.bean.PageRequest;
 
 public class GodUserBo extends PageRequest{
 	
-	private Integer id;
+	private Long id;
 	private String name;
 	private String password;
     private Integer status;
@@ -36,10 +36,10 @@ public class GodUserBo extends PageRequest{
 	public void setStatus(Integer status) {
 		this.status = status;
 	}
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 	public String getPassword() {

@@ -12,7 +12,7 @@ import com.god.model.zeus.query.GodUserLoginLogExample;
  * 用户登录日志表 DAO层
  * 
  * @author God
- * @date 2019-08-02 01:07:43
+ * @date 2019-08-10 18:52:38
  */
 public interface GodUserLoginLogDao {
 	
@@ -29,7 +29,7 @@ public interface GodUserLoginLogDao {
     /**
      * 删除记录-根据主键
      */
-    int deleteByPrimaryKey(Integer id);
+    int deleteByPrimaryKey(Long id);
 
     /**
      * 插入记录-完全插入
@@ -49,7 +49,7 @@ public interface GodUserLoginLogDao {
     /**
      * 查询记录-根据主键
      */
-    GodUserLoginLog selectByPrimaryKey(Integer id);
+    GodUserLoginLog selectByPrimaryKey(Long id);
 
     /**
      * 更新记录-根据示例条件选择性更新
