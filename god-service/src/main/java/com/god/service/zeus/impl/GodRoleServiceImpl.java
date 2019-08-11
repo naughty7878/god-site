@@ -1,5 +1,6 @@
 package com.god.service.zeus.impl;
 
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -12,11 +13,16 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.god.common.bean.PageResult;
 import com.god.common.util.DateUtils;
+import com.god.dao.zeus.GodResourceDao;
 import com.god.dao.zeus.GodRoleDao;
+import com.god.dao.zeus.GodRoleResourceDao;
 import com.god.model.zeus.bo.GodRoleBo;
+import com.god.model.zeus.entity.GodResource;
 import com.god.model.zeus.entity.GodRole;
+import com.god.model.zeus.entity.GodRoleResource;
 import com.god.model.zeus.query.GodRoleExample;
 import com.god.model.zeus.query.GodRoleExample.Criteria;
+import com.god.model.zeus.query.GodRoleResourceExample;
 import com.god.service.constant.GodRoleStatusEnum;
 import com.god.service.zeus.GodRoleService;
 
@@ -25,6 +31,9 @@ public class GodRoleServiceImpl implements GodRoleService {
 	
 	@Autowired
 	private GodRoleDao roleDao;
+	
+	@Autowired
+	private GodRoleResourceDao roleResourceDao;
 
 	
 	@Override
@@ -40,6 +49,7 @@ public class GodRoleServiceImpl implements GodRoleService {
 		String name = godRoleBo.getName();
 		String description = godRoleBo.getDescription();
 		Integer status = godRoleBo.getStatus();
+		List<Long> resourceIds = godRoleBo.getResourceIds();
 		
 		// 验证
 		if(StringUtils.isEmpty(name) ) {
@@ -67,6 +77,19 @@ public class GodRoleServiceImpl implements GodRoleService {
 		role.setCreateTime(currentTime);
 		role.setUpdateTime(currentTime);
 		int insertStatus = roleDao.insertSelective(role);
+		
+		// 保存角色资源关系
+		if(resourceIds != null && resourceIds.size() > 0) {
+			resourceIds.removeAll(Collections.singleton(null));
+			for (Long resourceId : resourceIds) {
+				GodRoleResource roleResource = new GodRoleResource();
+				roleResource.setRoleId(role.getId());
+				roleResource.setResourceId(resourceId);
+				roleResource.setCreateTime(currentTime);
+				roleResource.setUpdateTime(currentTime);
+				roleResourceDao.insert(roleResource);
+			}
+		}
 		return insertStatus;
 		
 	}
@@ -110,6 +133,8 @@ public class GodRoleServiceImpl implements GodRoleService {
 	public int update(GodRoleBo godRoleBo) {
 		String description = godRoleBo.getDescription();
 		Integer status = godRoleBo.getStatus();
+		List<Long> resourceIds = godRoleBo.getResourceIds();
+		Date currentTime = new Date();
 		
 		GodRole role = new GodRole();
 		role.setId(godRoleBo.getId());
@@ -120,7 +145,25 @@ public class GodRoleServiceImpl implements GodRoleService {
 		if(status != null) {
 			role.setStatus(status);
 		}
-		role.setUpdateTime(new Date());
+		role.setUpdateTime(currentTime);
+		
+		// 删除角色资源关系
+		GodRoleResourceExample roleResourceExample = new GodRoleResourceExample();
+		roleResourceExample.createCriteria().andRoleIdEqualTo(godRoleBo.getId());
+		roleResourceDao.deleteByExample(roleResourceExample);
+		
+		// 保存角色资源关系
+		if(resourceIds != null && resourceIds.size() > 0) {
+			resourceIds.removeAll(Collections.singleton(null));
+			for (Long resourceId : resourceIds) {
+				GodRoleResource roleResource = new GodRoleResource();
+				roleResource.setRoleId(role.getId());
+				roleResource.setResourceId(resourceId);
+				roleResource.setCreateTime(currentTime);
+				roleResource.setUpdateTime(currentTime);
+				roleResourceDao.insert(roleResource);
+			}
+		}
 		
 		return roleDao.updateByPrimaryKeySelective(role);
 	}

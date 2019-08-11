@@ -56,6 +56,8 @@ public class GodResourceBo extends PageRequest implements Serializable{
      * 状态：0禁用 1启用 
      */
 	private Integer status;
+	
+	private Long roleId;
 
 	private String beginDate;
 	private String endDate;
@@ -131,6 +133,12 @@ public class GodResourceBo extends PageRequest implements Serializable{
 	}
 	public void setEndDate(String endDate) {
 		this.endDate = endDate;
+	}
+	public Long getRoleId() {
+		return roleId;
+	}
+	public void setRoleId(Long roleId) {
+		this.roleId = roleId;
 	}
 	
 }

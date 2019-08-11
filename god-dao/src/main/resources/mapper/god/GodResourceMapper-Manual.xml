@@ -3,5 +3,29 @@
 
 <!-- 存放手写的sql -->
 <mapper namespace="com.god.dao.zeus.GodResourceDao">
-	
+	<select id="selectByRoleId" resultMap="BaseResultMap">
+		SELECT 
+			r.id,
+			r.name,
+			r.code,
+			r.description,
+			r.parent_id,
+			r.level,
+			r.sort,
+			r.url,
+			r.icon,
+			r.status,
+			r.create_time,
+			r.update_time
+	    FROM 
+	    	(SELECT 
+				resource_id
+		    FROM god_role_resource
+		       WHERE 
+		        role_id = #{roleId,jdbcType=BIGINT}) rr
+		LEFT JOIN 
+			god_resource r
+        ON 
+	        rr.resource_id = r.id 
+	</select>
 </mapper>

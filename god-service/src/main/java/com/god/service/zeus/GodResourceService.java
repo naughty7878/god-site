@@ -3,6 +3,7 @@ package com.god.service.zeus;
 import java.util.List;
 
 import com.god.common.bean.PageResult;
+import com.god.common.bean.TreeEntity;
 import com.god.model.zeus.bo.GodResourceBo;
 import com.god.model.zeus.entity.GodResource;
 
@@ -35,8 +36,16 @@ public interface GodResourceService {
 	GodResource getGodResourceById(Long resourceId);
 
 	/**
-	 * 可用资源集合
+	 * 可用资源集合树
 	 * @return
 	 */
-	List<GodResource> availableList();
+	List<TreeEntity> getAvailableTreeList();
+
+	/**
+	 * 根据角色ID 获取资源
+	 * @param roleId
+	 * @return
+	 */
+	List<GodResource> selectByRoleId(Long roleId);
+	
 }

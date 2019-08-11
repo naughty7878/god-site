@@ -73,4 +73,11 @@ public interface GodResourceDao {
      */
     int updateByPrimaryKey(GodResource record);
     
+    /**
+     * 根据角色ID 获取资源
+     * @param roleId
+     * @return
+     */
+    List<GodResource> selectByRoleId(Long roleId);
+    
 }

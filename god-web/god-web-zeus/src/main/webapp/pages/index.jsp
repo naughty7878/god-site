@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE HTML>
 <html>
 <head>
@@ -82,6 +85,29 @@
 	</header>
 	<aside class="Hui-aside">
 		<div class="menu_dropdown bk_2">
+			<c:forEach items="${currentResources }" var="resource" >
+				<c:if test="${resource.level == 1 }">
+					<dl id="menu-${resource.id }">
+						<dt>
+							<i class="Hui-iconfont">${resource.icon }</i> ${resource.name }<i
+								class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i>
+						</dt>
+						<dd>
+							<ul>
+							
+							<c:forEach items="${currentResources }" var="sub" >
+								<c:if test="${sub.level == 2 && resource.id == sub.parentId }">
+									<li><a data-href="${pageContext.request.contextPath }${sub.url}" data-title="${sub.name }"
+									href="javascript:void(0)">${sub.name }</a></li>
+								</c:if>
+							</c:forEach>
+							
+							</ul>
+						</dd>
+					</dl>
+				</c:if>
+			</c:forEach>
+			<!-- 
 			<dl id="menu-admin">
 				<dt>
 					<i class="Hui-iconfont">&#xe62d;</i> 管理员管理<i
@@ -99,6 +125,7 @@
 					</ul>
 				</dd>
 			</dl>
+			
 			<dl id="menu-system">
 				<dt>
 					<i class="Hui-iconfont">&#xe62e;</i> 系统管理<i
@@ -119,7 +146,7 @@
 					</ul>
 				</dd>
 			</dl>
-			<!-- 
+			
 			<dl id="menu-article">
 				<dt>
 					<i class="Hui-iconfont">&#xe616;</i> 资讯管理<i

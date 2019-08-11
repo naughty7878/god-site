@@ -16,6 +16,7 @@ import com.god.common.bean.AppCode;
  */
 public enum ResponseCode implements AppCode{
 	
+	AUTHORITY_NO_ACCESS(100, "无权限访问"),
 	AUTHORITY_NO_LOGIN(101, "未登录"),
 	AUTHORITY_USER_ERROR_PWD(102, "用户名或密码错误"),
 	AUTHORITY_USER_UNAVAILABLE(103, "用户已禁用"),

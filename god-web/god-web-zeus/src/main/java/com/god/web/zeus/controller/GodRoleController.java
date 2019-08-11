@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.god.common.annotation.AuthValidate;
 import com.god.common.bean.BaseInput;
 import com.god.common.bean.BaseOutput;
 import com.god.common.bean.PageResult;
@@ -28,6 +29,7 @@ public class GodRoleController {
 	@Autowired
 	private GodRoleService rodRoleService;
 	
+	@AuthValidate(value="/role/toList")
 	@RequestMapping(value="/toList", method=RequestMethod.GET)
 	public ModelAndView toList(){
 		

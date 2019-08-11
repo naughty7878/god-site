@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.god.common.annotation.AuthValidate;
 import com.god.common.bean.BaseInput;
 import com.god.common.bean.BaseOutput;
 import com.god.common.bean.PageResult;
@@ -29,6 +30,7 @@ public class GodUserController {
 	@Autowired
 	private GodUserService userService;
 	
+	
 	@RequestMapping(value="/toAdd", method=RequestMethod.GET)
 	public ModelAndView toAdd(){
 		
@@ -44,6 +46,7 @@ public class GodUserController {
 		return modelAndView;
 	}
 	
+	@AuthValidate(value="/admin/toList")
 	@RequestMapping(value="/toList", method=RequestMethod.GET)
 	public ModelAndView toList(){
 		

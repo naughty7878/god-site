@@ -2,6 +2,7 @@ package com.god.model.zeus.bo;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 import com.god.common.bean.PageRequest;
 
@@ -32,6 +33,10 @@ public class GodRoleBo extends PageRequest implements Serializable{
      * 状态：0禁用 1启用 
      */
 	private Integer status;
+	/**
+	 * 资源ID
+	 */
+	private List<Long> resourceIds;
 
 	private String beginDate;
 	private String endDate;
@@ -71,5 +76,12 @@ public class GodRoleBo extends PageRequest implements Serializable{
 	public void setEndDate(String endDate) {
 		this.endDate = endDate;
 	}
+	public List<Long> getResourceIds() {
+		return resourceIds;
+	}
+	public void setResourceIds(List<Long> resourceIds) {
+		this.resourceIds = resourceIds;
+	}
+	
 }
 
