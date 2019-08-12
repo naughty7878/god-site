@@ -28,10 +28,12 @@ import com.god.model.zeus.entity.GodUserLoginLog;
 import com.god.model.zeus.query.GodUserExample;
 import com.god.model.zeus.query.GodUserExample.Criteria;
 import com.god.model.zeus.query.GodUserLoginLogExample;
+import com.god.model.zeus.vo.GodUserVo;
 import com.god.model.zeus.vo.LoginUserVo;
 import com.god.service.base.BaseMapBaiduService;
 import com.god.service.constant.GodUserStatusEnum;
 import com.god.service.zeus.GodResourceService;
+import com.god.service.zeus.GodUserService;
 import com.god.service.zeus.LoginService;
 import com.god.service.zeus.constant.ZeusConstants;
 
@@ -52,6 +54,9 @@ public class LoginServiceImpl implements LoginService {
 	
 	@Autowired
 	private BaseMapBaiduService baseMapBaiduService;
+	
+	@Autowired
+	private GodUserService userService;
 
 	@Override
 	public void getVerifyCode(HttpServletRequest req, HttpServletResponse resp) {
@@ -149,7 +154,8 @@ public class LoginServiceImpl implements LoginService {
 		// 1、清除session中登录次数
 		req.getSession().setAttribute(ZeusConstants.SESSION_CURRENT_LOGIN_CHECK_NUM, 0);
 		// 2、保存user对象到session中
-		req.getSession().setAttribute(ZeusConstants.SESSION_CURRENT_LOGIN_USER, godUser);
+		GodUserVo godUerVo = userService.convertToGodUserVo(godUser);
+		req.getSession().setAttribute(ZeusConstants.SESSION_CURRENT_LOGIN_USER, godUerVo);
 		// 3、获取权限资源
 		Long userId = godUser.getId();
 		GodRole role = roleDao.selectByUserId(userId);

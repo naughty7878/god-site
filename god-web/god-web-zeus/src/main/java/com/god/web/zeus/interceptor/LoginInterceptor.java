@@ -13,6 +13,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.god.common.bean.BaseOutput;
 import com.god.common.constant.ResponseCode;
 import com.god.model.zeus.entity.GodUser;
+import com.god.model.zeus.vo.GodUserVo;
 import com.god.service.zeus.constant.ZeusConstants;
 
 /**
@@ -53,7 +54,7 @@ public class LoginInterceptor implements HandlerInterceptor {
 		}
 
 		// 登录信息
-		GodUser godUser = (GodUser) request.getSession().getAttribute(ZeusConstants.SESSION_CURRENT_LOGIN_USER);
+		GodUserVo godUser = (GodUserVo) request.getSession().getAttribute(ZeusConstants.SESSION_CURRENT_LOGIN_USER);
 
 		if (godUser == null) {
 			chk = false;

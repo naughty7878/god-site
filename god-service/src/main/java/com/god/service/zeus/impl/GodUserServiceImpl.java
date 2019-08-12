@@ -86,7 +86,7 @@ public class GodUserServiceImpl implements GodUserService{
 		return pageResult;
 	}
 	
-	private GodUserVo convertToGodUserVo(GodUser godUser) {
+	public GodUserVo convertToGodUserVo(GodUser godUser) {
 		if(godUser == null) return null;
 		GodUserVo userVo = new GodUserVo();
 		BeanUtils.copyProperties(godUser, userVo);
