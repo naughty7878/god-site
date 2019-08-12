@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="com.god.dao.zeus.GodUserLoginLogDao">
+
+	<resultMap id="BaseResultMap" type="com.god.model.zeus.entity.GodUserLoginLog">
+        <id property="id" jdbcType="BIGINT" column="id"/>
+        <result property="userId" jdbcType="INTEGER" column="user_id"/>
+        <result property="loginIp" jdbcType="VARCHAR" column="login_ip"/>
+        <result property="times" jdbcType="INTEGER" column="times"/>
+        <result property="city" jdbcType="VARCHAR" column="city"/>
+        <result property="createTime" jdbcType="TIMESTAMP" column="create_time"/>
+        <result property="updateTime" jdbcType="TIMESTAMP" column="update_time"/>
+	</resultMap>
+	
+	<sql id="Base_Column_List">
+		id,
+		user_id,
+		login_ip,
+		times,
+		city,
+		create_time,
+		update_time
+	</sql>
+	
+	<!-- useGeneratedKeys="true" keyProperty="xxx" for sqlserver and mysql -->
+	<insert id="insert" parameterType="com.god.model.zeus.entity.GodUserLoginLog" >
+	    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+			SELECT LAST_INSERT_ID()
+	   	</selectKey>
+        INSERT INTO god_user_login_log (
+        	user_id,
+        	login_ip,
+        	times,
+        	city,
+        	create_time,
+        	update_time
+        ) VALUES (
+        	#{userId,jdbcType=INTEGER},
+        	#{loginIp,jdbcType=VARCHAR},
+        	#{times,jdbcType=INTEGER},
+        	#{city,jdbcType=VARCHAR},
+        	#{createTime,jdbcType=TIMESTAMP},
+        	#{updateTime,jdbcType=TIMESTAMP}
+        )
+	</insert>
+	
+	<insert id="insertSelective" parameterType="com.god.model.zeus.entity.GodUserLoginLog" >
+	   	<selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+	   	INSERT INTO god_user_login_log 
+	   	<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="userId != null">
+		    	user_id,
+			</if>
+			<if test="loginIp != null">
+		    	login_ip,
+			</if>
+			<if test="times != null">
+		    	times,
+			</if>
+			<if test="city != null">
+		    	city,
+			</if>
+			<if test="createTime != null">
+		    	create_time,
+			</if>
+			<if test="updateTime != null">
+		    	update_time,
+			</if>
+        </trim>  
+        <trim prefix="VALUES (" suffix=")" suffixOverrides=",">
+       		<if test="userId != null">
+	       		#{userId,jdbcType=INTEGER},
+	       	</if>
+       		<if test="loginIp != null">
+	       		#{loginIp,jdbcType=VARCHAR},
+	       	</if>
+       		<if test="times != null">
+	       		#{times,jdbcType=INTEGER},
+	       	</if>
+       		<if test="city != null">
+	       		#{city,jdbcType=VARCHAR},
+	       	</if>
+       		<if test="createTime != null">
+	       		#{createTime,jdbcType=TIMESTAMP},
+	       	</if>
+       		<if test="updateTime != null">
+	       		#{updateTime,jdbcType=TIMESTAMP},
+	       	</if>
+		</trim>
+	</insert>
+    
+	<update id="updateByPrimaryKey" >
+        UPDATE god_user_login_log SET
+	        user_id = #{userId,jdbcType=INTEGER},
+	        login_ip = #{loginIp,jdbcType=VARCHAR},
+	        times = #{times,jdbcType=INTEGER},
+	        city = #{city,jdbcType=VARCHAR},
+	        create_time = #{createTime,jdbcType=TIMESTAMP},
+	        update_time = #{updateTime,jdbcType=TIMESTAMP}
+        WHERE 
+	        id = #{id,jdbcType=BIGINT}
+	</update>
+	
+	<update id="updateByPrimaryKeySelective" >
+        UPDATE god_user_login_log SET
+	        <if test="userId != null">
+	        	user_id = #{userId,jdbcType=INTEGER},
+	        </if>
+	        <if test="loginIp != null">
+	        	login_ip = #{loginIp,jdbcType=VARCHAR},
+	        </if>
+	        <if test="times != null">
+	        	times = #{times,jdbcType=INTEGER},
+	        </if>
+	        <if test="city != null">
+	        	city = #{city,jdbcType=VARCHAR},
+	        </if>
+	        <if test="createTime != null">
+	        	create_time = #{createTime,jdbcType=TIMESTAMP},
+	        </if>
+	        <if test="updateTime != null">
+	        	update_time = #{updateTime,jdbcType=TIMESTAMP}
+	        </if>
+        WHERE 
+	        id = #{id,jdbcType=BIGINT}
+	</update>
+
+    <delete id="deleteByPrimaryKey">
+        DELETE FROM god_user_login_log WHERE
+        id = #{id,jdbcType=BIGINT}
+    </delete>
+    
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap">
+		SELECT <include refid="Base_Column_List" />
+	    FROM god_user_login_log
+        WHERE 
+	        id = #{id,jdbcType=BIGINT}
+	</select>
+	
+	<sql id="Example_Where_Clause">
+	  <where>
+	    <foreach collection="oredCriteria" item="criteria" separator="or">
+	      <if test="criteria.valid">
+	        <trim prefix="(" prefixOverrides="and" suffix=")">
+	          <foreach collection="criteria.criteria" item="criterion">
+	            <choose>
+	            	<when test="criterion.noValue">
+						and ${criterion.condition}
+					</when>
+					<when test="criterion.singleValue">
+						and ${criterion.condition} #{criterion.value}
+					</when>
+					<when test="criterion.betweenValue">
+						and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+					</when>
+					<when test="criterion.listValue">
+						and ${criterion.condition}
+						<foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">#{listItem}</foreach>
+					</when>
+	            </choose>
+	          </foreach>
+	        </trim>
+	      </if>
+	    </foreach>
+	  </where>
+	</sql>	
+
+	<sql id="Update_By_Example_Where_Clause">
+		<where>
+			<foreach collection="example.oredCriteria" item="criteria"
+				separator="or">
+				<if test="criteria.valid">
+					<trim prefix="(" prefixOverrides="and" suffix=")">
+						<foreach collection="criteria.criteria" item="criterion">
+							<choose>
+								<when test="criterion.noValue">
+									and ${criterion.condition}
+								</when>
+								<when test="criterion.singleValue">
+									and ${criterion.condition} #{criterion.value}
+								</when>
+								<when test="criterion.betweenValue">
+									and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+								</when>
+								<when test="criterion.listValue">
+									and ${criterion.condition}
+									<foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">#{listItem}</foreach>
+								</when>
+							</choose>
+						</foreach>
+					</trim>
+				</if>
+			</foreach>
+		</where>
+	</sql>
+	
+	<update id="updateByExample" parameterType="map">
+		UPDATE god_user_login_log SET
+	        id = #{id,jdbcType=BIGINT},
+	        user_id = #{userId,jdbcType=INTEGER},
+	        login_ip = #{loginIp,jdbcType=VARCHAR},
+	        times = #{times,jdbcType=INTEGER},
+	        city = #{city,jdbcType=VARCHAR},
+	        create_time = #{createTime,jdbcType=TIMESTAMP},
+	        update_time = #{updateTime,jdbcType=TIMESTAMP}
+		<if test="_parameter != null">
+			<include refid="Update_By_Example_Where_Clause" />
+		</if>
+	</update>
+	
+	<update id="updateByExampleSelective" parameterType="map">
+		UPDATE god_user_login_log SET
+	        <if test="id != null">
+	        	id = #{id,jdbcType=BIGINT},
+	        </if>
+	        <if test="userId != null">
+	        	user_id = #{userId,jdbcType=INTEGER},
+	        </if>
+	        <if test="loginIp != null">
+	        	login_ip = #{loginIp,jdbcType=VARCHAR},
+	        </if>
+	        <if test="times != null">
+	        	times = #{times,jdbcType=INTEGER},
+	        </if>
+	        <if test="city != null">
+	        	city = #{city,jdbcType=VARCHAR},
+	        </if>
+	        <if test="createTime != null">
+	        	create_time = #{createTime,jdbcType=TIMESTAMP},
+	        </if>
+	        <if test="updateTime != null">
+	        	update_time = #{updateTime,jdbcType=TIMESTAMP}
+	        </if>
+		<if test="_parameter != null">
+			<include refid="Update_By_Example_Where_Clause" />
+		</if>
+	</update>
+	
+	<delete id="deleteByExample" parameterType="com.god.model.zeus.query.GodUserLoginLogExample">
+		DELETE FROM god_user
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+	</delete>
+	
+	<select id="countByExample" parameterType="com.god.model.zeus.query.GodUserLoginLogExample" resultType="java.lang.Long">
+		SELECT count(*) FROM god_user_login_log
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+	</select>
+	
+	<select id="selectByExample" parameterType="com.god.model.zeus.query.GodUserLoginLogExample" resultMap="BaseResultMap">
+		SELECT
+		<if test="distinct">
+			distinct
+		</if>
+		<include refid="Base_Column_List" />
+		FROM god_user_login_log
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+		<if test="orderByClause != null">
+			ORDER BY ${orderByClause}
+		</if>
+		<if test="start gt -1 and end lt 10000">
+            LIMIT #{start}, #{end}
+        </if>
+	</select>
+	
+</mapper>
+

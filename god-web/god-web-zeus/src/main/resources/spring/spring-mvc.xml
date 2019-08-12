@@ -48,7 +48,20 @@
 			<mvc:exclude-mapping path="/static/**" />
 			<mvc:exclude-mapping path="/lib/**" />
 			<mvc:exclude-mapping path="/helloWorld/**" />
+			<mvc:exclude-mapping path="/area/**" />
 			<bean class="com.god.web.zeus.interceptor.LoginInterceptor" />
+		</mvc:interceptor>
+		<!-- 权限认证拦截器 -->
+		<mvc:interceptor>
+			<!-- 拦截所有请求  别去掉* -->
+			<mvc:mapping path="/**" />
+			<!-- 不拦截的url 请求  -->
+			<mvc:exclude-mapping path="/login/**" />
+			<mvc:exclude-mapping path="/static/**" />
+			<mvc:exclude-mapping path="/lib/**" />
+			<mvc:exclude-mapping path="/helloWorld/**" />
+			<mvc:exclude-mapping path="/area/**" />
+			<bean class="com.god.web.zeus.interceptor.AuthInterceptor" />
 		</mvc:interceptor>
 	</mvc:interceptors>
 	

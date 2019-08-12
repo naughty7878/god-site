@@ -4,7 +4,7 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.god</groupId>
-	<artifactId>god</artifactId>
+	<artifactId>god-site</artifactId>
 	<version>1.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	<modules>
@@ -27,6 +27,8 @@
 
 		<!-- spring -->
 		<spring.version>5.1.4.RELEASE</spring.version>
+		<!-- aspectjrt -->
+		<aspectjrt.version>1.9.2</aspectjrt.version>
 
 		<!-- Mybatis -->
 		<mybatis.version>3.5.0</mybatis.version>
@@ -65,9 +67,9 @@
 
 		<!-- Tool -->
 		<!-- jackson json包 -->
-		<jackson-databind.version>2.9.6</jackson-databind.version>
-		<jackson-core.version>2.9.6</jackson-core.version>
-		<jackson-annotations.version>2.9.6</jackson-annotations.version>
+		<jackson-databind.version>2.9.7</jackson-databind.version>
+		<jackson-core.version>2.9.7</jackson-core.version>
+		<jackson-annotations.version>2.9.7</jackson-annotations.version>
 
 		<!-- sigarsigar获取系统信息包 -->
 		<sigar.version>2.9.6</sigar.version>
@@ -163,13 +165,13 @@
 			<dependency>
 				<groupId>org.aspectj</groupId>
 				<artifactId>aspectjrt</artifactId>
-				<version>1.9.2</version>
+				<version>${aspectjrt.version}</version>
 			</dependency>
 
 			<dependency>
 				<groupId>org.aspectj</groupId>
 				<artifactId>aspectjweaver</artifactId>
-				<version>1.9.2</version>
+				<version>${aspectjrt.version}</version>
 			</dependency>
 
 			<!-- Spring WEB MVC 模块 -->

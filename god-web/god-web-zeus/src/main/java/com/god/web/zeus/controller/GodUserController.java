@@ -12,11 +12,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.god.common.annotation.AuthValidate;
 import com.god.common.bean.BaseInput;
 import com.god.common.bean.BaseOutput;
 import com.god.common.bean.PageResult;
-import com.god.model.base.bo.GodUserBo;
+import com.god.model.zeus.bo.GodUserBo;
 import com.god.model.zeus.entity.GodUser;
+import com.god.model.zeus.vo.GodUserVo;
 import com.god.service.zeus.GodUserService;
 
 @Controller
@@ -28,6 +30,7 @@ public class GodUserController {
 	@Autowired
 	private GodUserService userService;
 	
+	
 	@RequestMapping(value="/toAdd", method=RequestMethod.GET)
 	public ModelAndView toAdd(){
 		
@@ -36,13 +39,14 @@ public class GodUserController {
 	}
 	
 	@RequestMapping(value="/toUpdate/{userId}", method=RequestMethod.GET)
-	public ModelAndView toUpdate(@PathVariable("userId") Integer userId){
+	public ModelAndView toUpdate(@PathVariable("userId") Long userId){
 		
 		ModelAndView modelAndView = new ModelAndView("admin/admin-update");
 		modelAndView.addObject("godUser", userService.getGodUserById(userId));
 		return modelAndView;
 	}
 	
+	@AuthValidate(value="/admin/toList")
 	@RequestMapping(value="/toList", method=RequestMethod.GET)
 	public ModelAndView toList(){
 		
@@ -52,25 +56,28 @@ public class GodUserController {
 	
 	@RequestMapping(value="/pageList", method=RequestMethod.POST)
 	@ResponseBody
-	public BaseOutput<PageResult<GodUser>> pageList(@RequestBody BaseInput<GodUserBo> input){
+	public BaseOutput<PageResult<GodUserVo>> pageList(@RequestBody BaseInput<GodUserBo> input){
 		
-		PageResult<GodUser> pageResult = userService.pageList(input.getData());
+		PageResult<GodUserVo> pageResult = userService.pageList(input.getData());
 		
 		return BaseOutput.OK(pageResult);
 	}
 	
 	@RequestMapping(value="/update", method=RequestMethod.POST)
 	@ResponseBody
-	public BaseOutput update(@RequestBody BaseInput<GodUserBo> input){
+	public BaseOutput<?> update(@RequestBody BaseInput<GodUserBo> input){
 		
-		userService.update(input.getData());
-		return BaseOutput.OK("更新成功");
+		int n = userService.update(input.getData());
+		if(n == 1) {
+			return BaseOutput.OK("更新成功");
+		}
+		return BaseOutput.ERROR(500,"更新失败");
 	}
 	
 	
 	@RequestMapping(value="/add", method=RequestMethod.POST)
 	@ResponseBody
-	public BaseOutput add(@RequestBody BaseInput<GodUserBo> input){
+	public BaseOutput<?> add(@RequestBody BaseInput<GodUserBo> input){
 		
 		int addStatus = userService.add(input.getData());
 		if(addStatus == 1) {

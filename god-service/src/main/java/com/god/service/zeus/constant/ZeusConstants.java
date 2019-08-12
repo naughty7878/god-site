@@ -19,4 +19,7 @@ public class ZeusConstants {
     
     // Session中存储的当前登陆用户日志的key
     public static final String SESSION_CURRENT_LOGIN_USER_LOG = "currentLoginUserLog";
+    
+    // Session中存储的当前登陆用户权限资源
+    public static final String SESSION_CURRENT_RESOURCES = "currentResources";
 }

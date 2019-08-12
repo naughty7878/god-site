@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE HTML>
 <html>
 <head>
@@ -50,7 +53,7 @@
 				<nav id="Hui-userbar"
 					class="nav navbar-nav navbar-userbar hidden-xs">
 					<ul class="cl">
-						<li>超级管理员</li>
+						<li>${empty currentLoginUser.roleName ? '游客' : currentLoginUser.roleName}</li>
 						<li class="dropDown dropDown_hover"><a href="#"
 							class="dropDown_A">${currentLoginUser.name } <i class="Hui-iconfont">&#xe6d5;</i></a>
 							<ul class="dropDown-menu menu radius box-shadow">
@@ -82,6 +85,29 @@
 	</header>
 	<aside class="Hui-aside">
 		<div class="menu_dropdown bk_2">
+			<c:forEach items="${currentResources }" var="resource" >
+				<c:if test="${resource.level == 1 }">
+					<dl id="menu-${resource.id }">
+						<dt>
+							<i class="Hui-iconfont">${resource.icon }</i> ${resource.name }<i
+								class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i>
+						</dt>
+						<dd>
+							<ul>
+							
+							<c:forEach items="${currentResources }" var="sub" >
+								<c:if test="${sub.level == 2 && resource.id == sub.parentId }">
+									<li><a data-href="${pageContext.request.contextPath }${sub.url}" data-title="${sub.name }"
+									href="javascript:void(0)">${sub.name }</a></li>
+								</c:if>
+							</c:forEach>
+							
+							</ul>
+						</dd>
+					</dl>
+				</c:if>
+			</c:forEach>
+			<!-- 
 			<dl id="menu-admin">
 				<dt>
 					<i class="Hui-iconfont">&#xe62d;</i> 管理员管理<i
@@ -91,14 +117,15 @@
 					<ul>
 						<li><a data-href="${pageContext.request.contextPath }/admin/toList" data-title="管理员列表"
 							href="javascript:void(0)">管理员列表</a></li>
-						<li><a data-href="admin-role.html" data-title="角色管理"
+						<li><a data-href="${pageContext.request.contextPath }/role/toList" data-title="角色管理"
 							href="javascript:void(0)">角色管理</a></li>
-						<li><a data-href="admin-permission.html" data-title="权限管理"
-							href="javascript:void(0)">权限管理</a></li>
+						<li><a data-href="${pageContext.request.contextPath }/resource/toList" data-title="资源管理"
+							href="javascript:void(0)">资源管理</a></li>
 						
 					</ul>
 				</dd>
 			</dl>
+			
 			<dl id="menu-system">
 				<dt>
 					<i class="Hui-iconfont">&#xe62e;</i> 系统管理<i
@@ -119,7 +146,7 @@
 					</ul>
 				</dd>
 			</dl>
-			<!-- 
+			
 			<dl id="menu-article">
 				<dt>
 					<i class="Hui-iconfont">&#xe616;</i> 资讯管理<i

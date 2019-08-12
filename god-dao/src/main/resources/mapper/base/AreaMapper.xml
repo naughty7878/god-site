@@ -1,0 +1,311 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="com.god.dao.base.AreaDao">
+
+	<resultMap id="BaseResultMap" type="com.god.model.base.entity.Area">
+        <id property="id" jdbcType="INTEGER" column="id"/>
+        <result property="code" jdbcType="VARCHAR" column="code"/>
+        <result property="parentCode" jdbcType="VARCHAR" column="parent_code"/>
+        <result property="name" jdbcType="VARCHAR" column="name"/>
+        <result property="alias" jdbcType="VARCHAR" column="alias"/>
+        <result property="scope" jdbcType="INTEGER" column="scope"/>
+        <result property="regionType" jdbcType="BIT" column="region_type"/>
+        <result property="createTime" jdbcType="TIMESTAMP" column="create_time"/>
+        <result property="updateTime" jdbcType="TIMESTAMP" column="update_time"/>
+	</resultMap>
+	
+	<sql id="Base_Column_List">
+		id,
+		code,
+		parent_code,
+		name,
+		alias,
+		scope,
+		region_type,
+		create_time,
+		update_time
+	</sql>
+	
+	<!-- useGeneratedKeys="true" keyProperty="xxx" for sqlserver and mysql -->
+	<insert id="insert" parameterType="com.god.model.base.entity.Area" >
+	    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+			SELECT LAST_INSERT_ID()
+	   	</selectKey>
+        INSERT INTO area (
+        	code,
+        	parent_code,
+        	name,
+        	alias,
+        	scope,
+        	region_type,
+        	create_time,
+        	update_time
+        ) VALUES (
+        	#{code,jdbcType=VARCHAR},
+        	#{parentCode,jdbcType=VARCHAR},
+        	#{name,jdbcType=VARCHAR},
+        	#{alias,jdbcType=VARCHAR},
+        	#{scope,jdbcType=INTEGER},
+        	#{regionType,jdbcType=BIT},
+        	#{createTime,jdbcType=TIMESTAMP},
+        	#{updateTime,jdbcType=TIMESTAMP}
+        )
+	</insert>
+	
+	<insert id="insertSelective" parameterType="com.god.model.base.entity.Area" >
+	   	<selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+	   	INSERT INTO area 
+	   	<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="code != null">
+		    	code,
+			</if>
+			<if test="parentCode != null">
+		    	parent_code,
+			</if>
+			<if test="name != null">
+		    	name,
+			</if>
+			<if test="alias != null">
+		    	alias,
+			</if>
+			<if test="scope != null">
+		    	scope,
+			</if>
+			<if test="regionType != null">
+		    	region_type,
+			</if>
+			<if test="createTime != null">
+		    	create_time,
+			</if>
+			<if test="updateTime != null">
+		    	update_time,
+			</if>
+        </trim>  
+        <trim prefix="VALUES (" suffix=")" suffixOverrides=",">
+       		<if test="code != null">
+	       		#{code,jdbcType=VARCHAR},
+	       	</if>
+       		<if test="parentCode != null">
+	       		#{parentCode,jdbcType=VARCHAR},
+	       	</if>
+       		<if test="name != null">
+	       		#{name,jdbcType=VARCHAR},
+	       	</if>
+       		<if test="alias != null">
+	       		#{alias,jdbcType=VARCHAR},
+	       	</if>
+       		<if test="scope != null">
+	       		#{scope,jdbcType=INTEGER},
+	       	</if>
+       		<if test="regionType != null">
+	       		#{regionType,jdbcType=BIT},
+	       	</if>
+       		<if test="createTime != null">
+	       		#{createTime,jdbcType=TIMESTAMP},
+	       	</if>
+       		<if test="updateTime != null">
+	       		#{updateTime,jdbcType=TIMESTAMP},
+	       	</if>
+		</trim>
+	</insert>
+    
+	<update id="updateByPrimaryKey" >
+        UPDATE area SET
+	        code = #{code,jdbcType=VARCHAR},
+	        parent_code = #{parentCode,jdbcType=VARCHAR},
+	        name = #{name,jdbcType=VARCHAR},
+	        alias = #{alias,jdbcType=VARCHAR},
+	        scope = #{scope,jdbcType=INTEGER},
+	        region_type = #{regionType,jdbcType=BIT},
+	        create_time = #{createTime,jdbcType=TIMESTAMP},
+	        update_time = #{updateTime,jdbcType=TIMESTAMP}
+        WHERE 
+	        id = #{id,jdbcType=INTEGER}
+	</update>
+	
+	<update id="updateByPrimaryKeySelective" >
+        UPDATE area SET
+	        <if test="code != null">
+	        	code = #{code,jdbcType=VARCHAR},
+	        </if>
+	        <if test="parentCode != null">
+	        	parent_code = #{parentCode,jdbcType=VARCHAR},
+	        </if>
+	        <if test="name != null">
+	        	name = #{name,jdbcType=VARCHAR},
+	        </if>
+	        <if test="alias != null">
+	        	alias = #{alias,jdbcType=VARCHAR},
+	        </if>
+	        <if test="scope != null">
+	        	scope = #{scope,jdbcType=INTEGER},
+	        </if>
+	        <if test="regionType != null">
+	        	region_type = #{regionType,jdbcType=BIT},
+	        </if>
+	        <if test="createTime != null">
+	        	create_time = #{createTime,jdbcType=TIMESTAMP},
+	        </if>
+	        <if test="updateTime != null">
+	        	update_time = #{updateTime,jdbcType=TIMESTAMP}
+	        </if>
+        WHERE 
+	        id = #{id,jdbcType=INTEGER}
+	</update>
+
+    <delete id="deleteByPrimaryKey">
+        DELETE FROM area WHERE
+        id = #{id,jdbcType=INTEGER}
+    </delete>
+    
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap">
+		SELECT <include refid="Base_Column_List" />
+	    FROM area
+        WHERE 
+	        id = #{id,jdbcType=INTEGER}
+	</select>
+	
+	<sql id="Example_Where_Clause">
+	  <where>
+	    <foreach collection="oredCriteria" item="criteria" separator="or">
+	      <if test="criteria.valid">
+	        <trim prefix="(" prefixOverrides="and" suffix=")">
+	          <foreach collection="criteria.criteria" item="criterion">
+	            <choose>
+	            	<when test="criterion.noValue">
+						and ${criterion.condition}
+					</when>
+					<when test="criterion.singleValue">
+						and ${criterion.condition} #{criterion.value}
+					</when>
+					<when test="criterion.betweenValue">
+						and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+					</when>
+					<when test="criterion.listValue">
+						and ${criterion.condition}
+						<foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">#{listItem}</foreach>
+					</when>
+	            </choose>
+	          </foreach>
+	        </trim>
+	      </if>
+	    </foreach>
+	  </where>
+	</sql>	
+
+	<sql id="Update_By_Example_Where_Clause">
+		<where>
+			<foreach collection="example.oredCriteria" item="criteria"
+				separator="or">
+				<if test="criteria.valid">
+					<trim prefix="(" prefixOverrides="and" suffix=")">
+						<foreach collection="criteria.criteria" item="criterion">
+							<choose>
+								<when test="criterion.noValue">
+									and ${criterion.condition}
+								</when>
+								<when test="criterion.singleValue">
+									and ${criterion.condition} #{criterion.value}
+								</when>
+								<when test="criterion.betweenValue">
+									and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+								</when>
+								<when test="criterion.listValue">
+									and ${criterion.condition}
+									<foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">#{listItem}</foreach>
+								</when>
+							</choose>
+						</foreach>
+					</trim>
+				</if>
+			</foreach>
+		</where>
+	</sql>
+	
+	<update id="updateByExample" parameterType="map">
+		UPDATE area SET
+	        id = #{id,jdbcType=INTEGER},
+	        code = #{code,jdbcType=VARCHAR},
+	        parent_code = #{parentCode,jdbcType=VARCHAR},
+	        name = #{name,jdbcType=VARCHAR},
+	        alias = #{alias,jdbcType=VARCHAR},
+	        scope = #{scope,jdbcType=INTEGER},
+	        region_type = #{regionType,jdbcType=BIT},
+	        create_time = #{createTime,jdbcType=TIMESTAMP},
+	        update_time = #{updateTime,jdbcType=TIMESTAMP}
+		<if test="_parameter != null">
+			<include refid="Update_By_Example_Where_Clause" />
+		</if>
+	</update>
+	
+	<update id="updateByExampleSelective" parameterType="map">
+		UPDATE area SET
+	        <if test="id != null">
+	        	id = #{id,jdbcType=INTEGER},
+	        </if>
+	        <if test="code != null">
+	        	code = #{code,jdbcType=VARCHAR},
+	        </if>
+	        <if test="parentCode != null">
+	        	parent_code = #{parentCode,jdbcType=VARCHAR},
+	        </if>
+	        <if test="name != null">
+	        	name = #{name,jdbcType=VARCHAR},
+	        </if>
+	        <if test="alias != null">
+	        	alias = #{alias,jdbcType=VARCHAR},
+	        </if>
+	        <if test="scope != null">
+	        	scope = #{scope,jdbcType=INTEGER},
+	        </if>
+	        <if test="regionType != null">
+	        	region_type = #{regionType,jdbcType=BIT},
+	        </if>
+	        <if test="createTime != null">
+	        	create_time = #{createTime,jdbcType=TIMESTAMP},
+	        </if>
+	        <if test="updateTime != null">
+	        	update_time = #{updateTime,jdbcType=TIMESTAMP}
+	        </if>
+		<if test="_parameter != null">
+			<include refid="Update_By_Example_Where_Clause" />
+		</if>
+	</update>
+	
+	<delete id="deleteByExample" parameterType="com.god.model.base.query.AreaExample">
+		DELETE FROM god_user
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+	</delete>
+	
+	<select id="countByExample" parameterType="com.god.model.base.query.AreaExample" resultType="java.lang.Long">
+		SELECT count(*) FROM area
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+	</select>
+	
+	<select id="selectByExample" parameterType="com.god.model.base.query.AreaExample" resultMap="BaseResultMap">
+		SELECT
+		<if test="distinct">
+			distinct
+		</if>
+		<include refid="Base_Column_List" />
+		FROM area
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+		<if test="orderByClause != null">
+			ORDER BY ${orderByClause}
+		</if>
+		<if test="start gt -1 and end lt 10000">
+            LIMIT #{start}, #{end}
+        </if>
+	</select>
+	
+</mapper>
+

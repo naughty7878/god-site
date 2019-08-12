@@ -3,126 +3,166 @@ package com.god.model.zeus.entity;
 import java.io.Serializable;
 import java.util.Date;
 
-public class GodResource implements Serializable {
-    private Integer id;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
-    private String name;
 
-    private String code;
+/**
+ * 资源表 实体类
+ * 
+ * @author God
+ * @date 2019-08-11 01:24:17
+ */
+public class GodResource implements Serializable{
+	
+	private static final long serialVersionUID = 1L;	
+	
+	/**
+     * ID 
+     */
+	private Long id;
+	/**
+     * 名称 
+     */
+	private String name;
+	/**
+     * 编码 
+     */
+	private String code;
+	/**
+     * 描述 
+     */
+	private String description;
+	/**
+     * 上级ID 
+     */
+	private Long parentId;
+	/**
+     * 级别 
+     */
+	private Integer level;
+	/**
+     * 排序 
+     */
+	private Integer sort;
+	/**
+     * 连接地址 
+     */
+	private String url;
+	/**
+     * 图标 
+     */
+	private String icon;
+	/**
+     * 状态：0禁用 1启用 
+     */
+	private Integer status;
+	/**
+     * 创建时间 
+     */
+	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
+	private Date createTime;
+	/**
+     * 更新时间 
+     */
+	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
+	private Date updateTime;
+	
+		
+	public void setId(Long value) {
+		this.id = value;
+	}
+	
+	public Long getId() {
+		return this.id;
+	}
+		
+	public void setName(String value) {
+		this.name = value;
+	}
+	
+	public String getName() {
+		return this.name;
+	}
+		
+	public void setCode(String value) {
+		this.code = value;
+	}
+	
+	public String getCode() {
+		return this.code;
+	}
+		
+	public void setDescription(String value) {
+		this.description = value;
+	}
+	
+	public String getDescription() {
+		return this.description;
+	}
+		
+	public void setParentId(Long value) {
+		this.parentId = value;
+	}
+	
+	public Long getParentId() {
+		return this.parentId;
+	}
+		
+	public void setLevel(Integer value) {
+		this.level = value;
+	}
+	
+	public Integer getLevel() {
+		return this.level;
+	}
+		
+	public void setSort(Integer value) {
+		this.sort = value;
+	}
+	
+	public Integer getSort() {
+		return this.sort;
+	}
+		
+	public void setUrl(String value) {
+		this.url = value;
+	}
+	
+	public String getUrl() {
+		return this.url;
+	}
+		
+	public void setIcon(String value) {
+		this.icon = value;
+	}
+	
+	public String getIcon() {
+		return this.icon;
+	}
+		
+	public void setStatus(Integer value) {
+		this.status = value;
+	}
+	
+	public Integer getStatus() {
+		return this.status;
+	}
+		
+	public void setCreateTime(Date value) {
+		this.createTime = value;
+	}
+	
+	public Date getCreateTime() {
+		return this.createTime;
+	}
+		
+	public void setUpdateTime(Date value) {
+		this.updateTime = value;
+	}
+	
+	public Date getUpdateTime() {
+		return this.updateTime;
+	}
 
-    private String describe;
-
-    private Integer parentId;
-
-    private Integer level;
-
-    private Integer sort;
-
-    private String url;
-
-    private String icon;
-
-    private Integer status;
-
-    private Date createTime;
-
-    private Date updateTime;
-
-    private static final long serialVersionUID = 1L;
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getCode() {
-        return code;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
-    }
-
-    public String getDescribe() {
-        return describe;
-    }
-
-    public void setDescribe(String describe) {
-        this.describe = describe;
-    }
-
-    public Integer getParentId() {
-        return parentId;
-    }
-
-    public void setParentId(Integer parentId) {
-        this.parentId = parentId;
-    }
-
-    public Integer getLevel() {
-        return level;
-    }
-
-    public void setLevel(Integer level) {
-        this.level = level;
-    }
-
-    public Integer getSort() {
-        return sort;
-    }
-
-    public void setSort(Integer sort) {
-        this.sort = sort;
-    }
-
-    public String getUrl() {
-        return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
-    }
-
-    public String getIcon() {
-        return icon;
-    }
-
-    public void setIcon(String icon) {
-        this.icon = icon;
-    }
-
-    public Integer getStatus() {
-        return status;
-    }
-
-    public void setStatus(Integer status) {
-        this.status = status;
-    }
-
-    public Date getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
-
-    public Date getUpdateTime() {
-        return updateTime;
-    }
-
-    public void setUpdateTime(Date updateTime) {
-        this.updateTime = updateTime;
-    }
 }
+

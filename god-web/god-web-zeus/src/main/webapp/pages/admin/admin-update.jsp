@@ -35,6 +35,14 @@
 			<input type="text" class="input-text" value="${godUser.name }" placeholder="" id="adminName" name="name">
 		</div>
 	</div>
+	<div class="row cl">
+		<label class="form-label col-xs-4 col-sm-3">角色：</label>
+		<div class="formControls col-xs-8 col-sm-9"> <span class="select-box" style="width:150px;">
+			<select class="select" name="adminRole" size="1">
+				<option value="0">无</option>
+			</select>
+			</span> </div>
+	</div>
 	<!-- 
 	<div class="row cl">
 		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>初始密码：</label>
@@ -73,17 +81,7 @@
 			<input type="text" class="input-text" placeholder="@" name="email" id="email">
 		</div>
 	</div>
-	<div class="row cl">
-		<label class="form-label col-xs-4 col-sm-3">角色：</label>
-		<div class="formControls col-xs-8 col-sm-9"> <span class="select-box" style="width:150px;">
-			<select class="select" name="adminRole" size="1">
-				<option value="0">超级管理员</option>
-				<option value="1">总编</option>
-				<option value="2">栏目主辑</option>
-				<option value="3">栏目编辑</option>
-			</select>
-			</span> </div>
-	</div>
+	
 	<div class="row cl">
 		<label class="form-label col-xs-4 col-sm-3">备注：</label>
 		<div class="formControls col-xs-8 col-sm-9">
@@ -111,6 +109,46 @@
 <script type="text/javascript" src="${pageContext.request.contextPath }/lib/jquery.validation/1.14.0/validate-methods.js"></script> 
 <script type="text/javascript" src="${pageContext.request.contextPath }/lib/jquery.validation/1.14.0/messages_zh.js"></script> 
 <script type="text/javascript">
+$(function() {
+	var admin_update_js = {
+		init : function() {
+			this.cacheElements();
+			this.bindEvents();
+			this.initLoadEvent();
+		},
+		cacheElements : function() {
+		},
+		bindEvents : function() {
+			//this.$accountPanel.on('click','.editBankCard',this.openEditBankCard);
+		},
+		initRoleList: function(){
+			$.ajax({
+				type:'post',
+				url: '${pageContext.request.contextPath }/role/availableList' ,
+				contentType:'application/json;charset=utf-8',
+				dataType:"json",
+				success: function(data){
+					if(data.code == 0){
+					    $.each(data.data, function (index, obj) {
+					    	$('select[name="adminRole"]').append("<option value=\"" + obj.id + "\">"+ obj.name +"</option>");
+					    });
+					}else {
+						layer.msg(data.msg, { icon : 2, time : 1000 });
+					}
+				},
+                error: function(XmlHttpRequest, textStatus, errorThrown){
+					layer.msg('error!',{icon:2,time:1000});
+				}
+			});
+		},
+		initLoadEvent : function() {
+			this.initRoleList();
+		}
+	};
+	//初始化
+	admin_update_js.init();
+});
+
 $(function(){
 	$('.skin-minimal input').iCheck({
 		checkboxClass: 'icheckbox-blue',
@@ -154,9 +192,11 @@ $(function(){
 		submitHandler:function(form){
 			var id = $('input[name="id"]').val();
 			var name = $('input[name="name"]').val();
+			var roleId = $('select[name="adminRole"]').val();
 			data = {};
 			data.id = id;
 			data.name = name;
+			data.roleId = roleId;
 		    param = {};
 		    param.data = data;
 		    $.ajax({

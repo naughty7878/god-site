@@ -17,16 +17,23 @@ import com.god.common.constant.ResponseCode;
 import com.god.common.util.IPUtils;
 import com.god.common.util.MD5Utils;
 import com.god.common.util.VerifyCodeUtils;
+import com.god.dao.zeus.GodResourceDao;
+import com.god.dao.zeus.GodRoleDao;
 import com.god.dao.zeus.GodUserDao;
 import com.god.dao.zeus.GodUserLoginLogDao;
+import com.god.model.zeus.entity.GodResource;
+import com.god.model.zeus.entity.GodRole;
 import com.god.model.zeus.entity.GodUser;
 import com.god.model.zeus.entity.GodUserLoginLog;
 import com.god.model.zeus.query.GodUserExample;
 import com.god.model.zeus.query.GodUserExample.Criteria;
 import com.god.model.zeus.query.GodUserLoginLogExample;
+import com.god.model.zeus.vo.GodUserVo;
 import com.god.model.zeus.vo.LoginUserVo;
 import com.god.service.base.BaseMapBaiduService;
 import com.god.service.constant.GodUserStatusEnum;
+import com.god.service.zeus.GodResourceService;
+import com.god.service.zeus.GodUserService;
 import com.god.service.zeus.LoginService;
 import com.god.service.zeus.constant.ZeusConstants;
 
@@ -34,13 +41,22 @@ import com.god.service.zeus.constant.ZeusConstants;
 public class LoginServiceImpl implements LoginService {
 	
 	@Autowired
-	private GodUserDao godUserDao;
+	private GodUserDao userDao;
 	
 	@Autowired
-	private GodUserLoginLogDao godUserLoginLogDao;
+	private GodRoleDao roleDao;
+	
+	@Autowired
+	private GodResourceService resourceService;
+	
+	@Autowired
+	private GodUserLoginLogDao userLoginLogDao;
 	
 	@Autowired
 	private BaseMapBaiduService baseMapBaiduService;
+	
+	@Autowired
+	private GodUserService userService;
 
 	@Override
 	public void getVerifyCode(HttpServletRequest req, HttpServletResponse resp) {
@@ -105,7 +121,8 @@ public class LoginServiceImpl implements LoginService {
 			GodUserExample userExample = new GodUserExample();
 			Criteria criteria = userExample.createCriteria();
 			criteria.andNameEqualTo(username);
-			List<GodUser> list = godUserDao.selectByExample(userExample);
+			userExample.setEnd(1);
+			List<GodUser> list = userDao.selectByExample(userExample);
 			if(list != null && list.size() > 0) {
 				GodUser godUser = list.get(0);
 				String md5Password = MD5Utils.getMD5ofStr(MD5Utils.getMD5ofStr(ZeusConstants.SYS_NAME + password));
@@ -113,7 +130,6 @@ public class LoginServiceImpl implements LoginService {
 					if(godUser.getStatus() == GodUserStatusEnum.USER_AVAILABLE.getCode()) {
 						// 登录成功
 						successLoginHandle(godUser, req);
-						req.getSession().setAttribute(ZeusConstants.SESSION_CURRENT_LOGIN_CHECK_NUM, 0);
 						return BaseOutput.OK("登录成功！");
 					}else {
 						return BaseOutput.ERROR(ResponseCode.AUTHORITY_USER_UNAVAILABLE.getCode(), ResponseCode.AUTHORITY_USER_UNAVAILABLE.getMsg());
@@ -135,17 +151,28 @@ public class LoginServiceImpl implements LoginService {
 	 */
 	@Transactional
 	private void successLoginHandle(GodUser godUser, HttpServletRequest req) {
-		
-		req.getSession().setAttribute(ZeusConstants.SESSION_CURRENT_LOGIN_USER, godUser);
+		// 1、清除session中登录次数
+		req.getSession().setAttribute(ZeusConstants.SESSION_CURRENT_LOGIN_CHECK_NUM, 0);
+		// 2、保存user对象到session中
+		GodUserVo godUerVo = userService.convertToGodUserVo(godUser);
+		req.getSession().setAttribute(ZeusConstants.SESSION_CURRENT_LOGIN_USER, godUerVo);
+		// 3、获取权限资源
+		Long userId = godUser.getId();
+		GodRole role = roleDao.selectByUserId(userId);
+		if(role != null) {
+			List<GodResource> resourceList = resourceService.selectByRoleId(role.getId());
+			req.getSession().setAttribute(ZeusConstants.SESSION_CURRENT_RESOURCES, resourceList);
+		}
 		
 		Date currentTime = new Date();
-		
+		// 4、保存日志
 		int logTimes = 0;
 		// 获取最新的日志
 		GodUserLoginLogExample loginLogExample = new GodUserLoginLogExample();
 		loginLogExample.createCriteria().andUserIdEqualTo(godUser.getId());
 		loginLogExample.setOrderByClause("create_time desc");
-		List<GodUserLoginLog> logList = godUserLoginLogDao.selectByExample(loginLogExample);
+		loginLogExample.setEnd(1);
+		List<GodUserLoginLog> logList = userLoginLogDao.selectByExample(loginLogExample);
 		if(logList.size() > 0) {
 			GodUserLoginLog godUserLoginLog = logList.get(0);
 			logTimes = godUserLoginLog.getTimes();
@@ -163,7 +190,7 @@ public class LoginServiceImpl implements LoginService {
 		loginLog.setTimes(logTimes + 1);
 		loginLog.setCreateTime(currentTime);
 		loginLog.setUpdateTime(currentTime);
-		godUserLoginLogDao.insert(loginLog);
+		userLoginLogDao.insert(loginLog);
 	}
 	
 	
