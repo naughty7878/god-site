@@ -40,10 +40,8 @@
 		<!-- mysql -->
 		<mysql.version>8.0.13</mysql.version>
 
-		<!-- c3p0 连接池 -->
-		<c3p0.version>0.9.5.4</c3p0.version>
-		<!-- bonecp 连接池 -->
-		<bonecp.version>0.8.0.RELEASE</bonecp.version>
+		<!-- druid 连接池 -->
+		<druid.version>1.1.19</druid.version>
 
 		<!-- HttpClient -->
 		<httpclient.version>4.5</httpclient.version>
@@ -79,7 +77,7 @@
 		<slf4j-api.version>1.7.5</slf4j-api.version>
 		<logback.version>1.2.3</logback.version>
 		<logback-ext-spring.version>0.1.5</logback-ext-spring.version>
-		
+
 
 		<!-- Test -->
 		<!-- Junit依赖 -->
@@ -207,6 +205,14 @@
 				<artifactId>spring-jdbc</artifactId>
 				<version>${spring.version}</version>
 			</dependency>
+			
+			<!-- Mybatis 整合 Spring -->
+			<dependency>
+				<groupId>org.mybatis</groupId>
+				<artifactId>mybatis-spring</artifactId>
+				<version>${mybatis-spring.version}</version>
+			</dependency>
+
 
 			<!-- Mybatis -->
 			<dependency>
@@ -221,13 +227,6 @@
 				<version>${pagehelper.version}</version>
 			</dependency>
 
-			<!-- Mybatis 整合 Spring -->
-			<dependency>
-				<groupId>org.mybatis</groupId>
-				<artifactId>mybatis-spring</artifactId>
-				<version>${mybatis-spring.version}</version>
-			</dependency>
-
 			<!-- mysql -->
 			<dependency>
 				<groupId>mysql</groupId>
@@ -235,19 +234,11 @@
 				<version>${mysql.version}</version>
 			</dependency>
 
-			<!-- c3p0 连接池 -->
-			<!-- https://mvnrepository.com/artifact/c3p0/c3p0 -->
+			<!-- druid 连接池 -->
 			<dependency>
-				<groupId>com.mchange</groupId>
-				<artifactId>c3p0</artifactId>
-				<version>${c3p0.version}</version>
-			</dependency>
-
-			<!-- boneCP 连接池 -->
-			<dependency>
-				<groupId>com.jolbox</groupId>
-				<artifactId>bonecp</artifactId>
-				<version>${bonecp.version}</version>
+				<groupId>com.alibaba</groupId>
+				<artifactId>druid</artifactId>
+				<version>${druid.version}</version>
 			</dependency>
 
 			<!-- HttpClient -->
@@ -306,27 +297,7 @@
 				<version>${standard.version}</version>
 			</dependency>
 
-			<!-- Mybatis -->
-			<dependency>
-				<groupId>org.mybatis</groupId>
-				<artifactId>mybatis</artifactId>
-				<version>${mybatis.version}</version>
-			</dependency>
-
-			<dependency>
-				<groupId>org.mybatis</groupId>
-				<artifactId>mybatis-spring</artifactId>
-				<version>${mybatis-spring.version}</version>
-			</dependency>
-
-			<!-- db -->
-			<!-- mysql -->
-			<dependency>
-				<groupId>mysql</groupId>
-				<artifactId>mysql-connector-java</artifactId>
-				<version>${mysql.version}</version>
-			</dependency>
-
+			
 			<!-- tool -->
 			<!-- jackson json包 -->
 			<dependency>
@@ -383,14 +354,14 @@
 				<artifactId>logback-access</artifactId>
 				<version>${logback.version}</version>
 			</dependency>
-			
+
 			<!-- logback与spring集成 -->
 			<dependency>
-			    <groupId>org.logback-extensions</groupId>
-			    <artifactId>logback-ext-spring</artifactId>
-			    <version>${logback-ext-spring.version}</version>
+				<groupId>org.logback-extensions</groupId>
+				<artifactId>logback-ext-spring</artifactId>
+				<version>${logback-ext-spring.version}</version>
 			</dependency>
-			
+
 
 			<!-- test -->
 			<!-- junit依赖 -->

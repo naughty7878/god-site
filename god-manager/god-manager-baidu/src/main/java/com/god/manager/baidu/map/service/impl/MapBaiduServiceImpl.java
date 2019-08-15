@@ -149,7 +149,7 @@ public class MapBaiduServiceImpl implements MapBaiduService{
 		// origin=40.01116,116.339303&destination=39.936404,116.452562
 		
 		MapBaiduServiceImpl mapService = new MapBaiduServiceImpl();
-		System.out.println(mapService.getGeocode("深圳大学城"));
+		// System.out.println(mapService.getGeocode("深圳大学城"));
 		
 		MapBaiduLocationResp resp = mapService.getLocationByIp("120.229.31.68");
 		System.out.println(resp);
