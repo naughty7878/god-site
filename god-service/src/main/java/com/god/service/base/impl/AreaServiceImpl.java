@@ -21,7 +21,7 @@ public class AreaServiceImpl implements AreaService {
 	private AreaDao areaDao;
 	
 	@Override
-	public BaseOutput<Area> selectByCode(String code) {
+	public Area selectByCode(String code) {
 		if(code == null || code.length() == 0) {
 			BaseOutput.ERROR(500, "区域编码不能为空");
 		}
@@ -30,13 +30,13 @@ public class AreaServiceImpl implements AreaService {
 		example.setEnd(1);
 		List<Area> list = areaDao.selectByExample(example);
 		if(list.size() > 0) {
-			return BaseOutput.OK(list.get(0));
+			return list.get(0);
 		}
-		return BaseOutput.ERROR(500, "区域编码不存在");
+		return null;
 	}
 
 	@Override
-	public BaseOutput<List<Area>> selectByExample(Area area) {
+	public List<Area> selectByExample(Area area) {
 		AreaExample example = new AreaExample();
 		if(area != null) {
 			String code = area.getCode();
@@ -63,7 +63,7 @@ public class AreaServiceImpl implements AreaService {
 			}
 		}
 		List<Area> list = areaDao.selectByExample(example);
-		return BaseOutput.OK(list);
+		return list;
 	}
 
 }

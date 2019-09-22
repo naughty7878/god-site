@@ -13,6 +13,10 @@ import com.god.common.bean.BaseOutput;
 import com.god.model.base.entity.Area;
 import com.god.service.base.AreaService;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+
+@Api(tags = "行政区域接口") 
 @RestController
 @RequestMapping(value = "/area")
 public class AreaController {
@@ -25,10 +29,11 @@ public class AreaController {
 	 * @param input
 	 * @return
 	 */
+	@ApiOperation("根据行政区域编码，获取行政区域接口")
 	@RequestMapping(value = "/getAreaByCode", method = RequestMethod.POST)
 	public BaseOutput<Area> getAreaByCode(@RequestBody BaseInput<Area> input){
-		
-		return areaService.selectByCode(input.getData().getCode());
+		Area area = areaService.selectByCode(input.getData().getCode());
+		return BaseOutput.OK(area);
 	}
 	
 	/**
@@ -36,10 +41,11 @@ public class AreaController {
 	 * @param input
 	 * @return
 	 */
+	@ApiOperation("根据行政区域条件，获取行政区域接口")
 	@RequestMapping(value = "/selectByExample", method = RequestMethod.POST)
 	public BaseOutput<List<Area>> selectByExample(@RequestBody BaseInput<Area> input){
-		
-		return areaService.selectByExample(input.getData());
+		List<Area> list = areaService.selectByExample(input.getData());
+		return BaseOutput.OK(list);
 	}
 
 }

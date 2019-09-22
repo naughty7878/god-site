@@ -12,7 +12,7 @@
 		http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
 		http://www.springframework.org/schema/context 
 		http://www.springframework.org/schema/context/spring-context-4.0.xsd">
-		
+
 	<!-- 配置文件 -->
 	<!-- 加载配置文件 -->
 	<bean id="propertyConfigurer"
@@ -24,27 +24,26 @@
 			</list>
 		</property>
 	</bean>
-	
-	
+
+
 
 	<!-- Sprin望管理所有的业务逻辑组件等 -->
-	<context:component-scan
-		base-package="com.god.service,com.god.web.zeus.handler,com.god.web.zeus.interceptor,com.god.web.zeus.aspect">
-		<context:exclude-filter type="annotation"
-			expression="org.springframework.stereotype.Controller" />
+	<context:component-scan base-package="com.god">
+		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller" />
 	</context:component-scan>
-	
-   	<!-- 放在spring配置中，才能对service生效 -->
-    <!--激活自动代理功能，启动对AspectJ注解的支持 -->
-    <aop:aspectj-autoproxy proxy-target-class="true"/>
-	
 
-	<bean id="objectMapper" name="objectMapper" class="com.fasterxml.jackson.databind.ObjectMapper">
+	<!-- 放在spring配置中，才能对service生效 -->
+	<!--激活自动代理功能，启动对AspectJ注解的支持 -->
+	<aop:aspectj-autoproxy proxy-target-class="true" />
+
+
+	<bean id="objectMapper" name="objectMapper"
+		class="com.fasterxml.jackson.databind.ObjectMapper">
 	</bean>
-	
+
 	<!-- 导入spring整合mybatis配置文件 -->
 	<import resource="classpath:spring/spring-mybatis.xml" />
-	
+
 	<!-- 导入service层spring配置文件 -->
 	<import resource="classpath:spring/spring-service.xml" />
 </beans>

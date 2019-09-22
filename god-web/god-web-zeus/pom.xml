@@ -18,18 +18,18 @@
 			<groupId>com.god</groupId>
 			<artifactId>god-service</artifactId>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>com.god</groupId>
 			<artifactId>god-manager-baidu</artifactId>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>com.god</groupId>
 			<artifactId>god-dao</artifactId>
 		</dependency>
 
-		
+
 
 		<!-- jstl -->
 		<dependency>
@@ -42,6 +42,17 @@
 			<artifactId>standard</artifactId>
 		</dependency>
 
+
+		<!-- Swagger -->
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger2</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger-ui</artifactId>
+		</dependency>
 	</dependencies>
 	<build>
 		<finalName>zeus</finalName>

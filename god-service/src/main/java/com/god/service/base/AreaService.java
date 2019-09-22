@@ -19,14 +19,14 @@ public interface AreaService {
 	 * @param id
 	 * @return
 	 */
-	public BaseOutput<Area> selectByCode(String code);
+	public Area selectByCode(String code);
 
 	/**
 	 * 根据行政区域条件，获取行政区域
 	 * @param data
 	 * @return
 	 */
-	public BaseOutput<List<Area>> selectByExample(Area area); 
+	public List<Area> selectByExample(Area area); 
 	
 	
 	

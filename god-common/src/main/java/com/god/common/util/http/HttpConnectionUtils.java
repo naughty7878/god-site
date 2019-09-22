@@ -232,7 +232,7 @@ public class HttpConnectionUtils {
 				e.printStackTrace();
 			}
 		}
-		return resultBuffer.toString();
+		return resultBuffer.toString().trim();
 	}
 
 	/**
@@ -392,7 +392,7 @@ public class HttpConnectionUtils {
 				}
 			}
 
-			return resultBuffer.toString();
+			return resultBuffer.toString().trim();
 		}
 	}
 
@@ -517,7 +517,7 @@ public class HttpConnectionUtils {
 				}
 			}
 
-			return resultBuffer.toString();
+			return resultBuffer.toString().trim();
 		}
 	}
 
