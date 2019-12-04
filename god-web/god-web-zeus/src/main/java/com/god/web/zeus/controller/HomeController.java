@@ -6,6 +6,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.god.service.base.BaseSysService;
@@ -34,7 +35,7 @@ public class HomeController {
 	 * 
 	 * @return
 	 */
-	@RequestMapping(value = "/index")
+	@RequestMapping(value = "/index", method=RequestMethod.GET)
 	public String index() {
 		return "index";
 	}
@@ -44,7 +45,7 @@ public class HomeController {
 	 * 
 	 * @return
 	 */
-	@RequestMapping(value = "/welcome")
+	@RequestMapping(value = "/welcome", method=RequestMethod.GET)
 	public ModelAndView welcome() {		
 		ModelAndView view = new ModelAndView("welcome");
 		try {

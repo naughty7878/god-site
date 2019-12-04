@@ -26,7 +26,7 @@ public class LoginController {
 	 * 界面-登录界面
 	 * @return
 	 */
-	@RequestMapping(value="/toLogin")
+	@RequestMapping(value="/toLogin", method=RequestMethod.GET)
 	public String toLogin(){
 		 return "login";
 	}
@@ -36,7 +36,7 @@ public class LoginController {
 	 * @param req
 	 * @param resp
 	 */
-	@RequestMapping(value="/getVerifyCode")
+	@RequestMapping(value="/getVerifyCode", method=RequestMethod.GET)
 	public void getVerifyCode(HttpServletRequest req, HttpServletResponse resp){
 	
 		 loginService.getVerifyCode(req, resp);
