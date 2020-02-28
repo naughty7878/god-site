@@ -12,6 +12,7 @@
 	<modules>
 		<module>god-manager-baidu</module>
 		<module>god-manager-alipay</module>
+		<module>god-manager-amap</module>
 	</modules>
 	
 	

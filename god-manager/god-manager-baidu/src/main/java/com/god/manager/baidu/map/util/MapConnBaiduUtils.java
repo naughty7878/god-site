@@ -269,7 +269,6 @@ public class MapConnBaiduUtils {
 	 * 
 	 * @param actionUrl
 	 *            ：上传的路径
-	 * @param uploadFilePaths：需要上传的文件路径，数组
 	 * @return
 	 */
 	@SuppressWarnings("finally")
@@ -591,10 +590,10 @@ public class MapConnBaiduUtils {
 		String str = "{mobile:15118003902, 'password': '123456', code:189161, deviceCode: 123456, lastLoginDevice:1, jpushId:654321}";
 		
 		
-		System.out.println(postMethod("http://120.76.103.76:8282/app/login/doLogin", str ));
+		System.out.println(postMethod("http://127.0.0.1:8282/app/login/doLogin", str ));
 
 		// 上传文件测试
-		// {"hasError":false,"errorMessage":null,"dataMap":{"name":"123.jpg","msg":"上传成功","url":"http://120.76.103.76:8080/images/20161222/20161222120211_952.jpg"}}
+		// {"hasError":false,"errorMessage":null,"dataMap":{"name":"123.jpg","msg":"上传成功","url":"http://127.0.0.1:8080/images/20161222/20161222120211_952.jpg"}}
 		//String str = uploadFile("http://app.singmon.cn/app/img/uploadImageTaskWorkBatch",new String[] { "C:/Users/H__D/Desktop/IMG_0109.JPG","C:/Users/H__D/Desktop/IMG_0109.JPG" });
 		//System.out.println(str);
 

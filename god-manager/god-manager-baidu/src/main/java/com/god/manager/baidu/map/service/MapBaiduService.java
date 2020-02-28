@@ -23,7 +23,7 @@ public interface MapBaiduService {
 	 * 注意：
 	 * 1、地址长度不能超过84个字节，及42个汉字
 	 * 2、地址采用urlencode编码
-	 * @param address 地址
+	 * @param ip
 	 * @return
 	 */
 	public abstract MapBaiduLocationResp getLocationByIp(String ip);

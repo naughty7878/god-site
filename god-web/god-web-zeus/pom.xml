@@ -29,6 +29,10 @@
 			<artifactId>god-dao</artifactId>
 		</dependency>
 
+		<dependency>
+			<groupId>com.god</groupId>
+			<artifactId>god-common</artifactId>
+		</dependency>
 
 
 		<!-- jstl -->
