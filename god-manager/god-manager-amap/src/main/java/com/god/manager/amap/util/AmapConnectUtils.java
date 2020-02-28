@@ -259,7 +259,6 @@ public class AmapConnectUtils {
 	 * 
 	 * @param actionUrl
 	 *            ：上传的路径
-	 * @param uploadFilePaths：需要上传的文件路径，数组
 	 * @return
 	 */
 	@SuppressWarnings("finally")
