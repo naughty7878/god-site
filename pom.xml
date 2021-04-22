@@ -31,7 +31,7 @@
 		<aspectjrt.version>1.9.2</aspectjrt.version>
 
 		<!-- Mybatis -->
-		<mybatis.version>3.5.0</mybatis.version>
+		<mybatis.version>3.5.6</mybatis.version>
 		<pagehelper.version>5.1.8</pagehelper.version>
 
 		<!-- Mybatis 整合 Spring -->
